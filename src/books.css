@@ -1,4 +1,6 @@
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: border-box;
 }
 :root {
@@ -7,90 +9,117 @@
   --pop-of-color: rgb(126, 75, 146);
   --pop-of-color-darker: rgb(104, 59, 122);
 }
-.bookPageWrapper { /*wraps the whole page*/
-  color:rgb(209, 214, 218);
+.bookPageWrapper {
+  /*wraps the whole page*/
+  color: rgb(209, 214, 218);
+}
+html {
+  background-color: var(--light-grey);
 }
 
 /*NAVBAR STUFF*/
-.navBarWrapper { /*wraps the book form, year menu, and title*/
-  background-color:var(--dark-grey);
+.navBarWrapper {
+  /*wraps the book form, year menu, and title*/
+  background-color: var(--dark-grey);
   margin: 0 auto;
-  padding:30px;
+  padding: 30px;
 }
 /*FORM*/
-.formWrapper { /*wraps the form*/
-  width:100%;
-  max-width:300px;
+.formWrapper {
+  /*wraps the form*/
+  width: 100%;
+  max-width: 300px;
   margin: 0 auto;
   box-sizing: border-box;
-  padding-bottom:10px;
+  padding-bottom: 10px;
 }
-.formStyle { /*form element*/
-  background-color:var(--light-grey);
-  padding:20px;
+.formStyle {
+  /*form element*/
+  background-color: var(--light-grey);
+  padding: 20px;
   margin-top: 10px;
   border-radius: 10px;
 }
-.labelStyle { /*label element*/
-  display:block;
+.labelStyle {
+  /*label element*/
+  display: block;
   padding-bottom: 5px;
 }
-.inputStyle { /*input element*/
+.inputStyle {
+  /*input element*/
   padding: 5px;
   border: 1px solid lightgray;
   border-radius: 4px;
-  width:100%;
-  background-color:lightgray;
+  width: 100%;
+  background-color: lightgray;
 }
-.inputStyle:hover, .inputStyle:focus {
+.inputStyle:hover,
+.inputStyle:focus {
   border-color: var(--light-grey);
 }
-.formButton { /*the buttons that expand the form and submit the form*/
-  width:100%;
+.formButton {
+  /*the buttons that expand the form and submit the form*/
+  width: 100%;
   padding: 14px 20px;
   margin: 0 auto;
   border-radius: 5px;
   border: 1px solid var(--dark-grey);
-  background-color:var(--pop-of-color);
+  background-color: var(--pop-of-color);
 }
 /*DROPDOWN MENU*/
-.dropDownWrapper { /*wraps the dropdown menu*/
-  width:100%;
-  max-width:300px;
+.dropDownWrapper {
+  /*wraps the dropdown menu*/
+  width: 100%;
+  max-width: 300px;
   margin: 0 auto;
 }
-.selectYearMenu { /*dropdown select element */
-  width:100%;
-  padding:10px;
-  margin-top:10px;
-  background-color:lightgray;
+.selectYearMenu {
+  /*dropdown select element */
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  background-color: lightgray;
 }
 /*TITLE*/
 .title {
-  color:var(--pop-of-color);
-  text-align:center;
+  color: var(--pop-of-color);
+  text-align: center;
 }
 
 /*BOOKS*/
-.allBooksWrapper { /*container of all the books*/
+.allBooksWrapper {
+  /*container of all the books*/
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
   align-items: center;
-  background-color:var(--light-grey);
-  padding-top:30px;
-  padding-bottom:30px;
+  background-color: var(--light-grey);
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
 /*BOOK*/
-.bookCard { /*an individual book*/
+.bookCardBase {
+  /*an individual book*/
   width: 100%;
   max-width: 300px;
   background-color: var(--dark-grey);
   border-radius: 10px;
-  margin: 20px;
+  margin: 0 auto;
 }
-.coverImg { /*cover image of a book */
+.smallBookCard {
+  /*on main page*/
+  width: 100%;
+  max-width: 300px;
+}
+.largeBookCard {
+  /*on more details page*/
+  width: 100%;
+  max-width: 800px;
+  padding: 20px;
+}
+.coverImg {
+  /*cover image of a book */
   width: 100%;
   height: auto;
   object-fit: cover;
@@ -99,27 +128,37 @@
   border-top-left-radius: 10px;
   border-bottom: solid 3px var(--pop-of-color);
 }
-.bookText { /*info and review parts of the book card*/
-  margin:10px;
+.coverImgDetailsPage {
+  display: block;
+  max-width: 300px;
+  height: auto;
+  margin: 0 auto;
+  border-radius: 10px;
+  border: solid 3px var(--pop-of-color);
+}
+.bookText {
+  /*info and review parts of the book card*/
+  margin: 10px;
 }
 .moreInfoButtonWrapper {
-  padding:10px;
+  padding: 10px;
 }
-.infoButton { /*expands the review*/
-  width:100%;
-  padding:10px;
-  background-color:lightgray;
+.infoButton {
+  /*expands the review*/
+  width: 100%;
+  padding: 10px;
+  background-color: lightgray;
   border: 1px solid lightgray;
   border-radius: 8px;
 }
 .buttonLink {
   display: inline-block;
-  width:100%;
+  width: 100%;
   padding: 10px 20px;
   background-color: var(--pop-of-color);
   color: #ffffff;
   text-decoration: none;
-  text-align:center;
+  text-align: center;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -128,4 +167,10 @@
 }
 .buttonLink:hover {
   background-color: var(--pop-of-color-darker);
+}
+
+/*BOOK DETAILS*/
+.bookDetails {
+  background-color: var(--light-grey);
+  padding: 10px;
 }

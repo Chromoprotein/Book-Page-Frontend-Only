@@ -15,10 +15,10 @@ export default function BookDetails() {
 
   const imgSrc = coverImage(book);
 
-    let reviewToShow = book.review;
-    if (!book.review) {
-        reviewToShow = "Review not available";
-    }
+  let reviewToShow = book.review;
+  if (!book.review) {
+      reviewToShow = "Review not available";
+  }
 
   const [showReview, setShowReview] = useState(false); // Initial selected option
 
@@ -27,10 +27,10 @@ export default function BookDetails() {
   };
 
   return (
-    <div>
-      <h2>Book Details - {id}</h2>
-      <div className="bookCard">
-        <img src={imgSrc} alt="Book cover" className="coverImg" />
+    <div class="bookDetails">
+      <h2 class="title">Book Details - {id}</h2>
+      <div className="bookCardBase largeBookCard">
+        <img src={imgSrc} alt="Book cover" className="coverImgDetailsPage" />
         <BookTextWrapper>
           <span>{book.title}</span>
           {book.series && <span> ({book.series}) </span>}

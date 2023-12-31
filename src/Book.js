@@ -7,7 +7,7 @@ export default function Book({ book }) {
   const imgSrc = coverImage(book);
 
   return (
-    <div className="bookCard">
+    <div className="bookCardBase smallBookCard">
       <img src={imgSrc} alt="Book cover" className="coverImg" />
       <BookTextWrapper>
         <span>{book.title}</span>

@@ -2,6 +2,7 @@ const booksData = [
   {
     title: "Journey of the Pharaohs",
     author: "Clive Cussler",
+    series: "Numa Files",
     imgSrc:
       "https://m.media-amazon.com/images/I/91e9bvCiTQL._AC_UF1000,1000_QL80_.jpg",
     year: "2023",

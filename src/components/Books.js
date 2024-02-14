@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import "./books.css";
-import BookDropDown from "./NavBar";
-import BookForm from "./BookForm";
+import "../styles/output.css";
+import { Link } from "react-router-dom";
+import Button from "./smallComponents/Button";
 import Book from "./Book";
-import { useBooks } from "./BookContext";
+import { useBooks } from "../contexts/BookContext";
+import { DropDownElement } from "./smallComponents/InputElement";
+import { yearsArray } from "../utils/yearsArray";
 
 export default function Books() {
   // Destructure bookArray from the context state object
@@ -29,15 +31,15 @@ export default function Books() {
 
   return (
     <div className="bookPageWrapper">
+
       <div className="navBarWrapper">
         <h1 className="title">List of Books - year {selectedOption}</h1>
-        <BookForm />
-        <BookDropDown
-          selectedOption={selectedOption}
-          handleYearChange={handleYearChange}
-        />
+        <Link to={`/upload`}><Button buttonType="button">Add Book</Button></Link>
+        <DropDownElement text="Select year" options={yearsArray} selectedOption={selectedOption} eventHandler={handleYearChange} />
       </div>
+
       <div className="allBooksWrapper">{listBooks}</div>
-    </div>
+
+  </div>
   );
 }

@@ -1,21 +1,32 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
-import BookContextProvider from "./BookContext";
-import { BrowserRouter } from "react-router-dom";
+import App from "./components/App";
+import BookContextProvider from "./contexts/BookContext";
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+import BookDetails from "./components/BookDetails";
+import BookForm from "./components/BookForm";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />
+  },
+  {
+    path: "book/:id",
+    element: <BookDetails/>
+  },
+  {
+    path: "upload",
+    element: <BookForm/>
+  },
+]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <BrowserRouter>
-      <BookContextProvider>
-        <App />
-      </BookContextProvider>
-  </BrowserRouter>
+    <BookContextProvider>
+      <RouterProvider router={router} />
+    </BookContextProvider>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();

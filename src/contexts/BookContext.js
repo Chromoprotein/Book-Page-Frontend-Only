@@ -1,5 +1,5 @@
 import { useContext, createContext, useReducer } from "react";
-import booksData from "./booksData"; // Importing the array that contains books
+import booksData from "../utils/booksData"; // Importing the array that contains books
 
 const BookContext = createContext();
 const BookDispatchContext = createContext();
@@ -61,10 +61,18 @@ export default function BookContextProvider({ children }) {
   const [state, dispatch] = useReducer(bookReducer, initialState);
 
   const handleFormChange = (e) => {
-    dispatch({
-      type: "UPDATE_FORM",
-      payload: { [e.target.name]: e.target.value },
-    });
+    if (e.target.type === 'file') {
+      const uploadedImage = URL.createObjectURL(e.target.files[0]);
+      dispatch({
+        type: "UPDATE_FORM",
+        payload: { [e.target.name]: uploadedImage },
+      });
+    } else {
+      dispatch({
+        type: "UPDATE_FORM",
+        payload: { [e.target.name]: e.target.value },
+      });
+    }
   };
 
   const handleSubmit = (e) => {

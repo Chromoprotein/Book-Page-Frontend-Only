@@ -10,16 +10,31 @@ export default function Book({ book: { title, series, author, imgSrc } }) {
   const cover = coverImage({ title, series, author, imgSrc });
 
   return (
-    <div className="bookCardBase smallBookCard">
-
-      <img src={cover} alt="Book cover" className="coverImg" />
-
-      <BookText series={series} title={title} author={author} />
-
-      <div className="moreInfoButtonWrapper">
-        <Link to={`/book/${encodeURIComponent(title)}`}><Button buttonType="button">View Details</Button></Link>
+    <div className="bg-slate-800 md:m-3 md:basis-1/3">
+      <div className="grid grid-cols-2">
+        <img src={cover} alt="Book cover" className="mx-auto h-60 md:h-80 opacity-80" />
+        <div className="flex flex-col justify-between">
+          <BookText series={series} title={title} author={author} />
+          <div>
+            <Link to={`/book/${encodeURIComponent(title)}`}><Button buttonType="button">View Details</Button></Link>
+            <Link to={`/edit/${encodeURIComponent(title)}`}><Button buttonType="button">Edit</Button></Link>
+          </div>
+        </div>
+      </div>
+    </div>
+    /*<div className="bg-slate-800 md:m-3 md:basis-1/3 flex flex-col justify-between">
+      <div>
+        <div className="bg-slate-900">
+          <img src={cover} alt="Book cover" className="mx-auto h-60 md:h-80 opacity-80" />
+        </div>
+        <BookText series={series} title={title} author={author} />
       </div>
 
-    </div>
+      <div className="">
+        <Link to={`/book/${encodeURIComponent(title)}`}><Button buttonType="button">View Details</Button></Link>
+        <Link to={`/edit/${encodeURIComponent(title)}`}><Button buttonType="button">Edit</Button></Link>
+      </div>
+
+    </div>*/
   );
 }

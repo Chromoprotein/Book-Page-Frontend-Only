@@ -30,16 +30,18 @@ export default function Books() {
     ));
 
   return (
-    <div className="bookPageWrapper">
+    <div className="bg-slate-700">
 
-      <div className="navBarWrapper">
+      {/*<div className="navBarWrapper">
         <h1 className="title">List of Books - year {selectedOption}</h1>
         <Link to={`/upload`}><Button buttonType="button">Add Book</Button></Link>
         <DropDownElement text="Select year" options={yearsArray} selectedOption={selectedOption} eventHandler={handleYearChange} />
+      </div>*/}
+
+      <div className="flex flex-col md:flex-row flex-wrap gap-3 place-content-center">
+        {listBooks}
       </div>
 
-      <div className="allBooksWrapper">{listBooks}</div>
-
-  </div>
+    </div>
   );
 }

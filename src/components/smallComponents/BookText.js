@@ -1,12 +1,24 @@
 export default function BookText({ series, title, author }) {
 
-    const bookSeries = series ? <span>{series}</span> : "";
+    const bookSeries = series ? <TextLine>{series}</TextLine> : "";
 
     return (
-      <div className="bookText">
-        <span>{title}</span>
+      <div className="px-6 pt-6 text-center">
+        <BigTextLine>{title}</BigTextLine>
         {bookSeries}
-        <span> by {author}</span>
+        <TextLine> by {author}</TextLine>
       </div>
     );
+}
+
+export function TextLine({children}) {
+  return (
+    <p className="text-slate-400">{children}</p>
+  );
+}
+
+export function BigTextLine({children}) {
+  return (
+    <p className="text-white text-xl font-medium">{children}</p>
+  );
 }

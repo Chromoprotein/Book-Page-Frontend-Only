@@ -2,7 +2,8 @@ import React from "react";
 import "../styles/books.css";
 import Button from "./smallComponents/Button";
 import { useBooks, useBooksActions } from "../contexts/BookContext";
-import { DropDownElement, InputElement, TextAreaElement } from "./smallComponents/InputElement";
+import { InputElement, TextAreaElement } from "./smallComponents/InputElement";
+import DropDownElement from "./smallComponents/DropDownElement";
 import { yearsArray } from "../utils/yearsArray";
 
 export default function BookForm() {

@@ -1,3 +1,6 @@
+import { TextLine } from "./TextLines";
+import { BigTextLine } from "./TextLines";
+
 export default function BookText({ series, title, author }) {
 
     const bookSeries = series ? <TextLine>{series}</TextLine> : "";
@@ -11,14 +14,3 @@ export default function BookText({ series, title, author }) {
     );
 }
 
-export function TextLine({children}) {
-  return (
-    <p className="text-slate-400">{children}</p>
-  );
-}
-
-export function BigTextLine({children}) {
-  return (
-    <p className="text-white text-xl font-medium">{children}</p>
-  );
-}

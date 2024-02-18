@@ -6,7 +6,8 @@ const booksData = [
     imgSrc:
       "https://m.media-amazon.com/images/I/91e9bvCiTQL._AC_UF1000,1000_QL80_.jpg",
     year: "2023",
-    review: "3/5, decent entertainment"
+    review: "3/5, decent entertainment",
+    stars: 3,
   },
   {
     title: "Pimeitten vetten paholainen",
@@ -14,7 +15,8 @@ const booksData = [
     imgSrc:
       "https://m.media-amazon.com/images/I/91QCG8hNfVL._AC_UF1000,1000_QL80_.jpg",
     year: "2023",
-    review: "4/5, a happily evil ending"
+    review: "4/5, a happily evil ending",
+    stars: 4,
   },
   {
     title: "Voidgod",
@@ -22,39 +24,45 @@ const booksData = [
     author: "G. D. Penman and Luke Chmilenko",
     imgSrc: "https://m.media-amazon.com/images/I/51V1k-44XdL.jpg",
     year: "2023",
-    review: "5/5, this will make you cry"
+    review: "5/5, this will make you cry",
+    stars: 5,
   },
   {
     title: "Oh God, Not Again",
     author: "Sarah1281",
     year: "2023",
-    review: "3/5, I literally don't remember"
+    review: "3/5, I literally don't remember",
+    stars: 3,
   },
   {
     title: "Vanki nimeltä Papillon",
     author: "Henri Charrière",
     year: "2023",
-    review: "3/5, feels like it didn't do what it promised"
+    review: "3/5, feels like it didn't do what it promised",
+    stars: 3.5,
   },
   {
     title: "Children of Hope ",
     series: "Seafort Saga #7",
     author: "David Feintuch",
     year: "2023",
-    review: "3/5, the new main character pales in comparison to the old"
+    review: "3/5, the new main character pales in comparison to the old",
+    stars: 3,
   },
   {
     title: "Avaruuslaivan kadetti",
     author: "Robert Heinlen",
     year: "2023",
-    review: "3/5, hasn't aged well"
+    review: "3/5, hasn't aged well",
+    stars: 3,
   },
   {
     title: "Patriarch's Hope",
     series: "Seafort Saga #6",
     author: "David Feintuch",
     year: "2023",
-    review: "4/5, it'll make you cry"
+    review: "4/5, it'll make you cry",
+    stars: 4.5,
   },
   {
     title: "Voices of Hope",

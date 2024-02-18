@@ -1,7 +1,9 @@
+import { WhiteTextLine } from "./TextLines";
+
 export function InputElement({ labelText, name, value, onChange }) {
     return (
       <label className="labelStyle">
-        {labelText}
+        <WhiteTextLine>{labelText}</WhiteTextLine>
         <input
           className="inputStyle"
           name={name}
@@ -16,7 +18,7 @@ export function InputElement({ labelText, name, value, onChange }) {
 export function TextAreaElement({ labelText, name, value, onChange }) {
     return (
       <label className="labelStyle">
-        {labelText}
+        <WhiteTextLine>{labelText}</WhiteTextLine>
         <textarea
           className="inputStyle"
           name={name}
@@ -26,20 +28,4 @@ export function TextAreaElement({ labelText, name, value, onChange }) {
         />
       </label>
     );
-}
-
-export function DropDownElement({ text, name, options, selectedOption, eventHandler }) {
-  return (
-    <label>
-      <span>{text}</span>
-      <select name={name} value={selectedOption} onChange={eventHandler}>
-            <option value="" disabled selected>
-                Year
-            </option>
-            {options.map((option, index) => 
-                <option key={index} value={option}>{option}</option>
-            )}
-      </select>
-    </label>
-  );
 }

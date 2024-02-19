@@ -2,7 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-.selectedOption {
+.active-color {
   background-color: #6b21a8 !important;
   color: white;
+}
+
+*, *::after, *::before {
+  box-sizing: border-box;
 }

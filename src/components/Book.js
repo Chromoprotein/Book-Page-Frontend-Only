@@ -5,7 +5,6 @@ import coverImage from "../utils/CoverImage";
 import BookText from "./smallComponents/BookText";
 import { VscEdit } from "react-icons/vsc";
 import { VscLibrary } from "react-icons/vsc";
-import IconContainer from "./smallComponents/IconContainer";
 import StarMaker from "../utils/StarMaker";
 
 export default function Book({ book: { title, series, author, imgSrc, stars } }) {
@@ -14,8 +13,8 @@ export default function Book({ book: { title, series, author, imgSrc, stars } })
   const cover = coverImage({ title, series, author, imgSrc, stars });
 
   return (
-    <div className="bg-slate-800 md:m-3 md:basis-1/3 rounded-lg">
-      <div className="grid grid-cols-2 h-96">
+    <div className="md:basis-1/2 bg-slate-800 m-3 rounded-lg max-w-96 md:h-36 lg:h-96">
+      <div className="grid grid-cols-2 h-full">
 
         <img src={cover} alt="Book cover" className="rounded-l-lg h-full opacity-80 object-cover" />
 

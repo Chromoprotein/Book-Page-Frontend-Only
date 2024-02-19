@@ -28,11 +28,13 @@ export default function Books() {
       <Navigation selectedOption={selectedOption} handleYearChange={handleYearChange} />
 
       <div className="bg-gradient-to-r from-sky-800 to-violet-800">
+        <div className="max-w-5xl mx-auto">
 
-        <div className="flex flex-col md:flex-row flex-wrap gap-3 place-content-center">
-          {listBooks}
+          <div className="flex flex-col lg:flex-row flex-wrap gap-3 place-content-center">
+            {listBooks}
+          </div>
+
         </div>
-
       </div>
     </>
   );

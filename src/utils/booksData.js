@@ -40,6 +40,7 @@ const booksData = [
     year: "2023",
     review: "3/5, feels like it didn't do what it promised",
     stars: 3.5,
+    imgSrc: "https://upload.wikimedia.org/wikipedia/fi/6/65/Papillonkirja.jpg",
   },
   {
     title: "Children of Hope ",
@@ -48,6 +49,7 @@ const booksData = [
     year: "2023",
     review: "3/5, the new main character pales in comparison to the old",
     stars: 3,
+    imgSrc: "https://m.media-amazon.com/images/I/51VX-WfD4vL.jpg",
   },
   {
     title: "Avaruuslaivan kadetti",
@@ -55,6 +57,7 @@ const booksData = [
     year: "2023",
     review: "3/5, hasn't aged well",
     stars: 3,
+    imgSrc: "https://upload.wikimedia.org/wikipedia/en/2/20/Sc48.jpg",
   },
   {
     title: "Patriarch's Hope",

@@ -9,6 +9,7 @@ export default function DropDownElement({ text, options, selectedOption, eventHa
     const toggleDropdown = () => setIsOpen(!isOpen);
 
     // Click outside the menu closes the menu
+    // If the click target is not contained within dropdownRef.current, it's outside the menu
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -35,9 +36,9 @@ export default function DropDownElement({ text, options, selectedOption, eventHa
         {options.map((option, index) => 
           <div 
             key={index} 
-            className={`hover:bg-purple-800 hover:text-white first:hover:rounded-t first:rounded-t last:hover:rounded-b last:rounded-b odd:bg-purple-200 px-4 py-2 w-32 text-center ${selectedOption === option ? 'selectedOption' : ''}`} 
+            className="hover:bg-purple-800 hover:text-white first:hover:rounded-t first:rounded-t last:hover:rounded-b last:rounded-b odd:bg-purple-200 px-4 py-2 w-32 text-center" 
             onClick={() => eventHandler(option)}>
-                {option}
+                {selectedOption === option ? <span>{option} &#10004;</span> : option}
             </div>
         )}
       </div>

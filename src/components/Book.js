@@ -13,15 +13,15 @@ export default function Book({ book: { title, series, author, imgSrc, stars } })
   const cover = coverImage({ title, series, author, imgSrc, stars });
 
   return (
-    <div className="md:basis-1/2 bg-slate-800 m-3 rounded-lg max-w-96 md:h-36 lg:h-96">
-      <div className="grid grid-cols-2 h-full">
+    <div className="bg-slate-800 rounded-lg w-96 basis-1/3 md:h-96">
+      <div className="grid grid-cols-2 h-full w-full">
 
         <img src={cover} alt="Book cover" className="rounded-l-lg h-full opacity-80 object-cover" />
 
-        <div className="flex flex-col justify-between p-3">
+        <div className="flex flex-col justify-between gap-1 ">
           <BookText series={series} title={title} author={author} />
           <StarMaker stars={stars} />
-          <div>
+          <div className="mb-2">
             <Link to={`/book/${encodeURIComponent(title)}`}>
               <Button buttonType="button">
                   <VscLibrary /> Details

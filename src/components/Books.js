@@ -24,18 +24,13 @@ export default function Books() {
 
 
   return (
-    <>
+    <div className="bg-gradient-to-r from-sky-800 to-violet-800">
       <Navigation selectedOption={selectedOption} handleYearChange={handleYearChange} />
 
-      <div className="bg-gradient-to-r from-sky-800 to-violet-800">
-        <div className="max-w-5xl mx-auto">
-
-          <div className="flex flex-col lg:flex-row flex-wrap gap-3 place-content-center">
-            {listBooks}
-          </div>
-
-        </div>
+      <div className="flex flex-col lg:flex-row flex-wrap flex-none justify-center place-content-center gap-3 pt-2">
+        {listBooks}
       </div>
-    </>
+'
+    </div>
   );
 }

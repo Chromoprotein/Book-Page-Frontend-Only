@@ -9,9 +9,9 @@ export function WhiteTextLine({children}) {
     <p className="text-white">{children}</p>
   );
 }
-
+ 
 export function BigTextLine({children}) {
   return (
-    <p className="text-white text-xl font-medium">{children}</p>
+    <h2 className="text-white text-xl font-medium">{children}</h2>
   );
 }

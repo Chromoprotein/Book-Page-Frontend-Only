@@ -13,12 +13,12 @@ export default function Book({ book: { title, series, author, imgSrc, stars } })
   const cover = coverImage({ title, series, author, imgSrc, stars });
 
   return (
-    <div className="bg-slate-800 rounded-lg w-96 basis-1/3 md:h-96">
-      <div className="grid grid-cols-2 h-full w-full">
+    <div className="bg-slate-800 md:rounded-lg w-96 max-w-full basis-1/3 md:h-96">
+      <div className="grid md:grid-cols-2 h-full">
 
-        <img src={cover} alt="Book cover" className="rounded-l-lg h-full opacity-80 object-cover" />
+        <img src={cover} alt="Book cover" className="md:rounded-l-lg w-full md:h-full opacity-80 object-cover" />
 
-        <div className="flex flex-col justify-between gap-1 ">
+        <div className="flex flex-col justify-between gap-1">
           <BookText series={series} title={title} author={author} />
           <StarMaker stars={stars} />
           <div className="mb-2">

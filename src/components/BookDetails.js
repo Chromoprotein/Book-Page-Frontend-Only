@@ -1,10 +1,13 @@
 import React from "react";
 import { useParams, Link } from "react-router-dom";
 import { useBooks } from "../contexts/BookContext";
-import { useState } from "react";
 import coverImage from "../utils/CoverImage";
 import Button from "./smallComponents/Button";
 import BookText from "./smallComponents/BookText";
+import Background from "./smallComponents/Background";
+import Navigation from "./Navigation";
+import { WhiteTextLine } from "./smallComponents/TextLines";
+import StarMaker from "../utils/StarMaker";
 
 // The page that displays a book separately
 
@@ -18,45 +21,36 @@ export default function BookDetails() {
 
   // Find the URL title from the book array
   const book = bookArray.find((obj) => obj.title === id);
-  const {title, series, author, review } = book;
+  const {title, series, author, review, stars } = book;
 
   // Get the cover image
   const imgSrc = coverImage(book);
 
-  // Toggle review visibility
-  const [showReview, setShowReview] = useState(false);
-  const toggleReview = () => {
-    setShowReview(!showReview);
-  };
-  const reviewButton = review ? 
-    <div className="moreInfoButtonWrapper">
-      <Button buttonType="button" buttonOnClick={toggleReview}>{showReview ? "Hide Review" : "Show Review"}</Button>
-    </div>
-    :
-    "Review not available";
-  const reviewContent = showReview &&
-    <div className="bookText">
-      <span>{review}</span>
-    </div>
+  const reviewContent = review ? review : "Review not available";
 
   return (
-    <div class="bookDetails">
+    <Background>
 
-      <h2 class="title">Book Details - {title}</h2>
+      <Navigation />
 
-      <div className="bookCardBase largeBookCard">
+      <div className="md:mt-2">
+        <div className="bg-slate-800 md:rounded-lg w-full md:w-2/3 grid lg:grid-cols-2 mx-auto">
 
-        <img src={imgSrc} alt="Book cover" className="coverImgDetailsPage" />
+          <img src={imgSrc} alt="Book cover" className="rounded-l-lg" />
 
-        <BookText series={series} title={title} author={author} />
+          <div className="p-4 flex flex-col justify-between">
+            <div>
+              <BookText series={series} title={title} author={author} />
+              <StarMaker stars={stars} />
+              <WhiteTextLine>{reviewContent}</WhiteTextLine>
+            </div>
 
-        {reviewContent}
+            <Link to={`/`}><Button buttonType="button">Return</Button></Link>
+          </div>
 
-        {reviewButton}
-
+        </div>
       </div>
 
-      <Link to={`/`}><Button buttonType="button">Return</Button></Link>
-    </div>
+    </Background>
   );
 }

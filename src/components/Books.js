@@ -3,6 +3,7 @@ import "../styles/output.css";
 import Book from "./Book";
 import { useBooks } from "../contexts/BookContext";
 import Navigation from "./Navigation";
+import Background from "./smallComponents/Background";
 
 export default function Books() {
   // Destructure bookArray from the context state object
@@ -24,13 +25,12 @@ export default function Books() {
 
 
   return (
-    <div className="bg-gradient-to-r from-sky-800 to-violet-800">
+    <Background>
       <Navigation selectedOption={selectedOption} handleYearChange={handleYearChange} />
 
-      <div className="flex flex-col lg:flex-row flex-wrap flex-none justify-center place-content-center gap-3 pt-2">
+      <div className="flex flex-col lg:flex-row flex-wrap flex-none justify-center place-content-center gap-3 pt-2 w-full">
         {listBooks}
       </div>
-'
-    </div>
+    </Background>
   );
 }

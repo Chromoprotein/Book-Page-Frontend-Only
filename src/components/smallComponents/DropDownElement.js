@@ -32,13 +32,16 @@ export default function DropDownElement({ text, options, selectedOption, eventHa
     <Button buttonType="button" buttonOnClick={toggleDropdown}>{text}</Button>
 
     {isOpen && (
-      <div className="absolute -right-10 md:right-2 mt-1 bg-white rounded-md shadow-lg w-screen md:w-32">
+      <div className="fixed inset-0 md:inset-auto md:right-2 z-50 md:absolute md:z-10 md:mt-1 bg-white md:rounded-md shadow-lg w-screen md:w-32 h-fit">
         {options.map((option, index) => 
           <div 
             key={index} 
-            className="hover:bg-purple-800 hover:text-white first:hover:rounded-t first:rounded-t last:hover:rounded-b last:rounded-b odd:bg-purple-200 px-4 py-2 h-20 md:h-12 flex justify-center items-center" 
-            onClick={() => eventHandler(option)}>
-                {selectedOption === option ? <span>{option} &#10004;</span> : option}
+            className="hover:bg-purple-800 hover:text-white md:first:hover:rounded-t md:first:rounded-t md:last:hover:rounded-b md:last:rounded-b odd:bg-purple-200 px-4 py-2 h-20 md:h-12 flex justify-center items-center" 
+            onClick={() => {
+              eventHandler(option);
+              setIsOpen(false);
+            }}>
+              {selectedOption === option ? <span>{option} &#10004;</span> : option}
             </div>
         )}
       </div>

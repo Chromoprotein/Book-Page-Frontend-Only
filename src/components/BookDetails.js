@@ -8,6 +8,8 @@ import Background from "./smallComponents/Background";
 import Navigation from "./Navigation";
 import { WhiteTextLine } from "./smallComponents/TextLines";
 import StarMaker from "../utils/StarMaker";
+import BookCover from "./smallComponents/BookCover";
+import SmallInfoContainer from "./smallComponents/SmallInfoContainer";
 
 // The page that displays a book separately
 
@@ -26,26 +28,30 @@ export default function BookDetails() {
   // Get the cover image
   const imgSrc = coverImage(book);
 
-  const reviewContent = review ? review : "Review not available";
+  const reviewContent = review ? review : <SmallInfoContainer>Review not available</SmallInfoContainer>;
 
   return (
     <Background>
 
       <Navigation />
 
-      <div className="md:mt-2">
-        <div className="bg-slate-800 md:rounded-lg w-full md:w-2/3 grid lg:grid-cols-2 mx-auto">
+      <div className="m-2">
+        <div className="bg-slate-800 rounded-lg w-full md:w-2/3 grid lg:grid-cols-2 mx-auto">
 
-          <img src={imgSrc} alt="Book cover" className="rounded-l-lg" />
+          <BookCover img={imgSrc} />
 
-          <div className="p-4 flex flex-col justify-between">
-            <div>
-              <BookText series={series} title={title} author={author} />
-              <StarMaker stars={stars} />
-              <WhiteTextLine>{reviewContent}</WhiteTextLine>
+          <div className="flex flex-col justify-between rounded-br-lg rounded-bl-lg md:rounded-bl-none">
+            <div className="p-4 flex flex-col justify-between">
+              <div>
+                <BookText series={series} title={title} author={author} />
+                <StarMaker stars={stars} />
+                <WhiteTextLine>{reviewContent}</WhiteTextLine>
+              </div>
             </div>
 
-            <Link to={`/`}><Button buttonType="button">Return</Button></Link>
+            <div className="bg-slate-700 px-0 py-2 m-0 w-full rounded-br-lg rounded-bl-lg md:rounded-bl-none">
+              <Link to={`/`}><Button buttonType="button">Return</Button></Link>
+            </div>
           </div>
 
         </div>

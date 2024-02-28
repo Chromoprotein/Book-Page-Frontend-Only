@@ -4,6 +4,8 @@ import Book from "./Book";
 import { useBooks } from "../contexts/BookContext";
 import Navigation from "./Navigation";
 import Background from "./smallComponents/Background";
+import BasicFlexbox from "./smallComponents/BasicFlexbox";
+import SmallInfoContainer from "./smallComponents/SmallInfoContainer";
 
 export default function Books() {
   // Destructure bookArray from the context state object
@@ -23,14 +25,16 @@ export default function Books() {
       <Book key={index} book={book} />
   ));
 
-
   return (
     <Background>
       <Navigation selectedOption={selectedOption} handleYearChange={handleYearChange} />
 
-      <div className="flex flex-col lg:flex-row flex-wrap flex-none justify-center place-content-center gap-3 pt-2 w-full">
+      {listBooks.length > 0 ?
+      <BasicFlexbox>
         {listBooks}
-      </div>
+      </BasicFlexbox> : 
+      <SmallInfoContainer>No books found for this search or filter.</SmallInfoContainer>
+      }
     </Background>
   );
 }

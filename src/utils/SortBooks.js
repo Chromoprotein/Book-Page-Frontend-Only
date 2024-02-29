@@ -1,28 +1,32 @@
-export function sortBooks(books, criteria, reversed) {
-    let sortedBooks = books.sort((a, b) => {
-        if (criteria === 'author') {
-            // Split the author names by space and take the last element as the last name
-            const lastNameA = a[criteria].split(' ').pop().toUpperCase();
-            const lastNameB = b[criteria].split(' ').pop().toUpperCase();
-            // Compare the last names
-            if (lastNameA < lastNameB) return -1;
-            if (lastNameA > lastNameB) return 1;
+export const sortBooks = (books, sortOption) => {
+    return books.sort((a, b) => {
+        let valA, valB;
+
+        const getTitleWithoutArticle = (title) => {
+            return title.replace(/^(a |an |the )/i, '').toUpperCase();
+        };
+
+        switch (sortOption) {
+            case 'title-asc':
+            case 'title-desc':
+                valA = getTitleWithoutArticle(a.title);
+                valB = getTitleWithoutArticle(b.title);
+                break;
+            case 'author-asc':
+            case 'author-desc':
+                valA = a.author.split(' ').pop().toUpperCase(); // Assuming sorting by last name
+                valB = b.author.split(' ').pop().toUpperCase();
+                break;
+            case 'rating-asc':
+                return a.stars - b.stars;
+            case 'rating-desc':
+                return b.stars - a.stars;
+            default:
+                return 0;
         }
-        else if (criteria === 'title') {
-            // Remove unnecessary a, an, or the from the book title
-            const getTitleWithoutArticle = (title) => {
-                return title.replace(/^(a |an |the )/i, '').toUpperCase();
-            };
-            const nameA = getTitleWithoutArticle(a[criteria]);
-            const nameB = getTitleWithoutArticle(b[criteria]);
-            if (nameA < nameB) return -1;
-            if (nameA > nameB) return 1;
-            return 0;
-        } else if (criteria === 'stars') {
-            return b[criteria] - a[criteria];
-        }
+
+        if (valA < valB) return sortOption.endsWith('desc') ? 1 : -1;
+        if (valA > valB) return sortOption.endsWith('desc') ? -1 : 1;
         return 0;
     });
-
-    return reversed ? sortedBooks.reverse() : sortedBooks; // Reverse the sorted array if needed
 };

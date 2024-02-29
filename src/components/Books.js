@@ -14,9 +14,11 @@ export default function Books() {
   const { state } = useBooks();
   const { bookArray } = state;
 
+  // Display books
+  const [results, setResults] = useState(bookArray);
+
   // Search logic
   const [query, setQuery] = useState('');
-  const [results, setResults] = useState(bookArray);
   const searchOptions = {
     includeScore: true,
     threshold: 0.2, // Lower means more strict match
@@ -34,21 +36,25 @@ export default function Books() {
       setResults([]);
     }
   };
-  const resetSearch = () => {
-    setQuery('');
-    setResults(bookArray);
-  }
 
   // Sorting states
-  const [sortCriteria, setSortCriteria] = useState('title');
-  const [isReversed, setIsReversed] = useState(false); // State to track if the list is reversed
-  // Sorting event handlers
-  const handleSortChange = (e) => setSortCriteria(e.target.value);
-  const handleReverseToggle = () => setIsReversed(!isReversed);
-  // Sort and optionally reverse books based on the current criteria
-  const refinedBooks = sortBooks([...results], sortCriteria, isReversed);
+  const [sortOption, setSortOption] = useState(''); // Default sort option
+  // Sorting event handler
+  const handleSort = (e) => {
+    setSortOption(e.target.value);
+    const sortedBooks = sortBooks([...results], e.target.value);
+    setResults(sortedBooks);
+  }
 
-  const listBooks = refinedBooks
+  // Reset everything
+  const resetSearch = () => {
+    setQuery('');
+    setSortOption('')
+    setResults(bookArray);
+  }
+  
+  // Map the refined books for display
+  const listBooks = results
       .map((book, index) => (
       <Book key={index} book={book} />
   ));
@@ -67,16 +73,17 @@ export default function Books() {
         <button onClick={handleSearchClick}>Search</button>
       </div>
 
-      <select onChange={handleSortChange} value={sortCriteria}>
-        <option value="title">Title</option>
-        <option value="author">Author</option>
-        <option value="stars">Rating</option>
+      <select value={sortOption} onChange={handleSort}>
+        <option value="" disabled>Sort</option>
+        <option value="title-asc">Title A to Z</option>
+        <option value="title-desc">Title Z to A</option>
+        <option value="author-asc">Author A to Z</option>
+        <option value="author-desc">Author Z to A</option>
+        <option value="rating-desc">Rating Best to Worst</option>
+        <option value="rating-asc">Rating Worst to Best</option>
       </select>
-      <button onClick={handleReverseToggle}>
-        {isReversed ? 'Normal Order' : 'Reverse Order'}
-      </button>
 
-      <button onClick={resetSearch}>Reset</button>
+      <button disabled={!query && !sortOption} onClick={resetSearch}>Reset</button>
 
       {listBooks.length > 0 ?
       <BasicFlexbox>

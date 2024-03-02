@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import Button from "./Button";
 
-export default function DropDownElement({ text, options, selectedOption, eventHandler }) {
+export default function DropDownElement({ text, name, options, selectedOption, eventHandler }) {
 
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef(null);
@@ -29,7 +29,7 @@ export default function DropDownElement({ text, options, selectedOption, eventHa
 
     <div className="relative" ref={dropdownRef}>
 
-    <Button buttonType="button" buttonOnClick={toggleDropdown}>{text}</Button>
+    <Button buttonType="button" buttonOnClick={toggleDropdown}>{selectedOption ? selectedOption : text}</Button>
 
     {isOpen && (
       <div className="fixed inset-0 md:inset-auto md:right-2 z-50 md:absolute md:z-10 md:mt-1 bg-white md:rounded-md shadow-lg w-screen md:w-32 h-fit">
@@ -38,8 +38,15 @@ export default function DropDownElement({ text, options, selectedOption, eventHa
             key={index} 
             className="hover:bg-purple-800 hover:text-white md:first:hover:rounded-t md:first:rounded-t md:last:hover:rounded-b md:last:rounded-b odd:bg-purple-200 px-4 py-2 h-20 md:h-12 flex justify-center items-center" 
             onClick={() => {
-              eventHandler(option);
-              setIsOpen(false);
+                // Simulate an event object
+                const simulatedEvent = {
+                    target: {
+                        name: name,
+                        value: option,
+                    }
+                };
+                eventHandler(simulatedEvent);
+                setIsOpen(false);
             }}>
               {selectedOption === option ? <span>{option} &#10004;</span> : option}
             </div>

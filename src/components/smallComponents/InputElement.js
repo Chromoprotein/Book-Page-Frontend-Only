@@ -1,14 +1,14 @@
 import { WhiteTextLine } from "./TextLines";
 
-export function InputElement({ labelText, name, value, onChange }) {
+export function InputElement({ labelText, placeholder, name, value, onChange }) {
     return (
-      <label className="labelStyle">
-        <WhiteTextLine>{labelText}</WhiteTextLine>
+      <label>
+        {labelText && <WhiteTextLine>{labelText}</WhiteTextLine>}
         <input
-          className="inputStyle"
           name={name}
           value={value}
           onChange={onChange}
+          placeholder={placeholder}
           required
         />
       </label>
@@ -17,10 +17,9 @@ export function InputElement({ labelText, name, value, onChange }) {
 
 export function TextAreaElement({ labelText, name, value, onChange }) {
     return (
-      <label className="labelStyle">
+      <label>
         <WhiteTextLine>{labelText}</WhiteTextLine>
         <textarea
-          className="inputStyle"
           name={name}
           value={value}
           onChange={onChange}

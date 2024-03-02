@@ -5,6 +5,7 @@ import { useBooks, useBooksActions } from "../contexts/BookContext";
 import { InputElement, TextAreaElement } from "./smallComponents/InputElement";
 import DropDownElement from "./smallComponents/DropDownElement";
 import { yearsArray } from "../utils/yearsArray";
+import Background from "./smallComponents/Background";
 
 export default function BookForm() {
 
@@ -12,35 +13,38 @@ export default function BookForm() {
   const { newEntry } = state;
   const { handleFormChange, handleSubmit } = useBooksActions();
 
-  console.log(newEntry)
   return (
-   <form className="formStyle" onSubmit={handleSubmit}>
+    <Background>
+        <form className="bg-slate-800 rounded-lg p-3 w-96 flex flex-col justify-center items-center mx-auto" onSubmit={handleSubmit}>
 
-      <div>
-        <input 
-          type="file" 
-          name="imgSrc"
-          id="file-upload" 
-          style={{ display: 'none' }} 
-          onChange={handleFormChange} 
-        />
-        <label htmlFor="file-upload">
-          Upload Image
-        </label> 
-        {newEntry.imgSrc && <img src={newEntry.imgSrc} alt="Uploaded" />}
-      </div>
+            <div>
+              <input 
+                type="file" 
+                name="imgSrc"
+                id="file-upload" 
+                className="hidden" 
+                onChange={handleFormChange} 
+              />
+              <Button
+                buttonType="button"
+                buttonOnClick={() => document.getElementById('file-upload').click()}
+              >Upload Image
+              </Button>
+              {newEntry.imgSrc && <img src={newEntry.imgSrc} alt="Uploaded" />}
+            </div>
 
-      <InputElement text="Book name" name="title" value={newEntry.title} onChange={handleFormChange} />
+            <InputElement labelText="Book name" name="title" value={newEntry.title} onChange={handleFormChange} />
 
-      <InputElement text="Author name" name="author" value={newEntry.author} onChange={handleFormChange} />
+            <InputElement labelText="Author name" name="author" value={newEntry.author} onChange={handleFormChange} />
 
-      <DropDownElement text="When did you read this?" name="year" options={yearsArray} selectedOption={newEntry.year} eventHandler={handleFormChange} />
+            <DropDownElement text="Read year" name="year" options={yearsArray} selectedOption={newEntry.year} eventHandler={handleFormChange} />
 
-      <TextAreaElement text="Write a short review" name="review" value={newEntry.review} onChange={handleFormChange} />
+            <TextAreaElement labelText="Write a short review" name="review" value={newEntry.review} onChange={handleFormChange} />
 
-      <Button buttonType="submit">
-        Submit
-      </Button>
-    </form>
+            <Button buttonType="submit">
+              Submit
+            </Button>
+          </form>
+    </Background>
   );
 }

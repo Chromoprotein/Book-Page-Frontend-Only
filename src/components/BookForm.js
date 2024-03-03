@@ -8,10 +8,37 @@ import { yearsArray } from "../utils/yearsArray";
 import Background from "./smallComponents/Background";
 
 export default function BookForm() {
-
+ 
   const { state } = useBooks();
   const { newEntry } = state;
-  const { handleFormChange, handleSubmit } = useBooksActions();
+  const { dispatch } = useBooksActions();
+
+  const handleFormChange = (e) => {
+    if (e.target.type === 'file') {
+      const uploadedImage = URL.createObjectURL(e.target.files[0]);
+      dispatch({
+        type: "UPDATE_FORM",
+        payload: { [e.target.name]: uploadedImage },
+      });
+    } else {
+      dispatch({
+        type: "UPDATE_FORM",
+        payload: { [e.target.name]: e.target.value },
+      });
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const { title, author, imgSrc, year, review } = state.newEntry;
+    const newBook = { title, author, imgSrc, year, review };
+
+    // Dispatch an action to add a new book
+    dispatch({ type: "ADD_BOOK", payload: newBook });
+
+    // Dispatch an action to reset the form
+    dispatch({ type: "RESET_FORM" });
+  };
 
   return (
     <Background>

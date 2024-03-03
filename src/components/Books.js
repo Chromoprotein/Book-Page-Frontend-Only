@@ -1,60 +1,62 @@
-import React, { useState, useReducer } from "react";
+import React, { useState } from "react";
 import "../styles/output.css";
 import Book from "./Book";
 import { useBooks } from "../contexts/BookContext";
+import { useBooksActions } from "../contexts/BookContext";
 import Navigation from "./Navigation";
 import Background from "./smallComponents/Background";
 import BasicFlexbox from "./smallComponents/BasicFlexbox";
 import SmallInfoContainer from "./smallComponents/SmallInfoContainer";
 import Fuse from 'fuse.js';
-import bookOrganizerReducer from "../utils/BookOrganizerReducer";
 import DropDownElement from "./smallComponents/DropDownElement";
 import Button from "./smallComponents/Button";
 import { InputElement } from "./smallComponents/InputElement";
 
 export default function Books() {
 
-  // Original books context
-  const { state: contextState } = useBooks();
-  const { bookArray } = contextState;
+  // Original books and display books state from context
+  const { state } = useBooks();
+  const { bookArray, displayedBooks } = state;
+  // Dispatch function from context
+  const { dispatch } = useBooksActions();
 
-  // Initialize the reducer
-  const initialState = {
-    results: bookArray,
-  };
-  const [state, dispatch] = useReducer(bookOrganizerReducer, initialState);
-  // State of books to display
-  const { results } = state;
-
-  // Search 
+  // SEARCH
   const [query, setQuery] = useState('');
+  // Set up Fuse
   const searchOptions = {
     includeScore: true,
     threshold: 0.2, // Lower means more strict match
     keys: ["title", "author"],
   };
   const fuse = new Fuse(bookArray, searchOptions);
+  // Input field event handler
+  const handleChangeInput = (e) => {
+    const newInput = e.target.value;
+    setQuery(newInput);
+  }
+  // Search dispatch action
   const handleSearchClick = () => {
-    dispatch({ type: 'search', payload: { query, fuse } });
+    dispatch({ type: 'SEARCH', payload: { query, fuse } });
   };
-
-  // Sorting 
+ 
+  // SORTING
   const [sortOption, setSortOption] = useState('');
+  // Sort dispatch action
   const handleSort = (e) => {
     const newSortOption = e.target.value;
     setSortOption(newSortOption);
-    dispatch({ type: 'sort', payload: { newSortOption } });
+    dispatch({ type: 'SORT', payload: { newSortOption } });
   };
 
-  // Reset everything
+  // RESET FILTERS
   const resetSearch = () => {
-    dispatch({ type: 'reset', payload: { bookArray } });
+    dispatch({ type: 'RESET_FILTERS' });
     setQuery('');
     setSortOption('');
   };
   
-  // Map the refined books for display
-  const listBooks = results
+  // MAP REFINED BOOKS FOR DISPLAY
+  const listBooks = displayedBooks
       .map((book, index) => (
       <Book key={index} book={book} />
   ));
@@ -69,7 +71,7 @@ export default function Books() {
           <InputElement
             placeholder="Search for books or authors"
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={handleChangeInput}
           />
           <Button buttonOnClick={handleSearchClick}>Search</Button>
         </div>

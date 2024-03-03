@@ -1,20 +1,30 @@
 import { useContext, createContext, useReducer } from "react";
-import booksData from "../utils/booksData"; // Importing the array that contains books
+import booksData from "../utils/booksData";
+// Sort helper function
+import { sortBooks } from "../utils/SortBooks";
 
 const BookContext = createContext();
 const BookDispatchContext = createContext();
 
-// Reducer function to handle state updates
+// Search helper function
+const filterBooks = (fuse, query) => {
+  return fuse.search(query).map(result => result.item);
+};
+
 const bookReducer = (state, action) => {
   const { type, payload } = action;
-  const { title, author, imgSrc, year, review } = state.newEntry;
+  // Destructure state
+  const { bookArray, displayedBooks, newEntry } = state;
 
   switch (type) {
+
     case "ADD_BOOK":
       return {
         ...state,
-        bookArray: [...state.bookArray, payload],
+        bookArray: [...bookArray, payload], // Update the full books list
+        displayedBooks: [...bookArray, payload], // Also update displayed books list
       };
+
     case "RESET_FORM":
       return {
         ...state,
@@ -26,71 +36,43 @@ const bookReducer = (state, action) => {
           review: "",
         },
       };
+
     case "UPDATE_FORM":
       return {
         ...state,
         newEntry: {
-          title,
-          author,
-          imgSrc,
-          year,
-          review,
-          ...payload,
+          ...newEntry,
+          ...payload, // Spread because it's a property for an object
         },
       };
+
+    case 'SEARCH':
+      const searchResults = payload.query ? filterBooks(payload.fuse, payload.query) : state.bookArray;
+      return { ...state, displayedBooks: searchResults };
+
+    case 'SORT':
+      const sortedBooks = sortBooks([...displayedBooks], payload.newSortOption);
+      return { ...state, displayedBooks: sortedBooks };
+
+    case 'RESET_FILTERS':
+      return { ...state, displayedBooks: bookArray };
+
     default:
-      return state;
+      throw new Error(`Unhandled action type: ${type}`);
+
   }
 };
 
 
 export default function BookContextProvider({ children }) {
 
-  const initialState = {
-    bookArray: booksData,
-    newEntry: {
-      title: "",
-      author: "",
-      imgSrc: "",
-      year: "",
-      review: "",
-    },
-  };
-
   // Using useReducer instead of multiple useState hooks
   const [state, dispatch] = useReducer(bookReducer, initialState);
-
-  const handleFormChange = (e) => {
-    if (e.target.type === 'file') {
-      const uploadedImage = URL.createObjectURL(e.target.files[0]);
-      dispatch({
-        type: "UPDATE_FORM",
-        payload: { [e.target.name]: uploadedImage },
-      });
-    } else {
-      dispatch({
-        type: "UPDATE_FORM",
-        payload: { [e.target.name]: e.target.value },
-      });
-    }
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const { title, author, imgSrc, year, review } = state.newEntry;
-    const newBook = { title, author, imgSrc, year, review };
-
-    // Dispatch an action to add a new book
-    dispatch({ type: "ADD_BOOK", payload: newBook });
-
-    // Dispatch an action to reset the form
-    dispatch({ type: "RESET_FORM" });
-  };
 
   return (
     <div>
       <BookContext.Provider value={{ state }}>
-        <BookDispatchContext.Provider value={{ dispatch, handleSubmit, handleFormChange }}>
+        <BookDispatchContext.Provider value={{ dispatch }}>
           {children}
         </BookDispatchContext.Provider>
       </BookContext.Provider>
@@ -106,3 +88,15 @@ export function useBooks() {
 export function useBooksActions () {
   return useContext(BookDispatchContext);
 }
+
+const initialState = {
+  bookArray: booksData,
+  displayedBooks: booksData,
+  newEntry: {
+    title: "",
+    author: "",
+    imgSrc: "",
+    year: "",
+    review: "",
+  },
+};

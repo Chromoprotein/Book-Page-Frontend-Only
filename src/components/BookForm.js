@@ -1,43 +1,60 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/books.css";
 import Button from "./smallComponents/Button";
-import { useBooks, useBooksActions } from "../contexts/BookContext";
+import { useBooksActions } from "../contexts/BookContext";
 import { InputElement, TextAreaElement } from "./smallComponents/InputElement";
 import DropDownElement from "./smallComponents/DropDownElement";
 import { yearsArray } from "../utils/yearsArray";
 import Background from "./smallComponents/Background";
+import { useNavigate } from "react-router-dom";
 
 export default function BookForm() {
- 
-  const { state } = useBooks();
-  const { newEntry } = state;
+  
+  const emptyForm = {
+    title: "",
+    author: "",
+    imgSrc: "",
+    year: "",
+    review: "",
+  }
+  const [formState, setFormState] = useState(emptyForm);
   const { dispatch } = useBooksActions();
+
+  // To return after submitting the form
+  const navigate = useNavigate();
+
+  // For the submit button
+  const isEmpty = Object.values(formState).some(field => field === null || field === '');
 
   const handleFormChange = (e) => {
     if (e.target.type === 'file') {
+      if (formState.imgSrc) {
+        URL.revokeObjectURL(formState.imgSrc);
+      }
       const uploadedImage = URL.createObjectURL(e.target.files[0]);
-      dispatch({
-        type: "UPDATE_FORM",
-        payload: { [e.target.name]: uploadedImage },
-      });
+      setFormState(prevState => ({
+        ...prevState,
+        [e.target.name]: uploadedImage,
+      }));
     } else {
-      dispatch({
-        type: "UPDATE_FORM",
-        payload: { [e.target.name]: e.target.value },
-      });
+      setFormState(prevState => ({
+        ...prevState,
+        [e.target.name]: e.target.value
+      }));
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { title, author, imgSrc, year, review } = state.newEntry;
-    const newBook = { title, author, imgSrc, year, review };
 
     // Dispatch an action to add a new book
-    dispatch({ type: "ADD_BOOK", payload: newBook });
+    dispatch({ type: "ADD_BOOK", payload: formState });
 
     // Dispatch an action to reset the form
-    dispatch({ type: "RESET_FORM" });
+    setFormState(emptyForm);
+
+    navigate("/");
+
   };
 
   return (
@@ -57,18 +74,18 @@ export default function BookForm() {
                 buttonOnClick={() => document.getElementById('file-upload').click()}
               >Upload Image
               </Button>
-              {newEntry.imgSrc && <img src={newEntry.imgSrc} alt="Uploaded" />}
+              {formState.imgSrc && <img src={formState.imgSrc} alt="Uploaded" />}
             </div>
 
-            <InputElement labelText="Book name" name="title" value={newEntry.title} onChange={handleFormChange} />
+            <InputElement labelText="Book name" name="title" value={formState.title} onChange={handleFormChange} />
 
-            <InputElement labelText="Author name" name="author" value={newEntry.author} onChange={handleFormChange} />
+            <InputElement labelText="Author name" name="author" value={formState.author} onChange={handleFormChange} />
 
-            <DropDownElement text="Read year" name="year" options={yearsArray} selectedOption={newEntry.year} eventHandler={handleFormChange} />
+            <DropDownElement text="Read year" name="year" options={yearsArray} selectedOption={formState.year} eventHandler={handleFormChange} />
 
-            <TextAreaElement labelText="Write a short review" name="review" value={newEntry.review} onChange={handleFormChange} />
+            <TextAreaElement labelText="Write a short review" name="review" value={formState.review} onChange={handleFormChange} />
 
-            <Button buttonType="submit">
+            <Button buttonType="submit" isDisabled={isEmpty}>
               Submit
             </Button>
           </form>

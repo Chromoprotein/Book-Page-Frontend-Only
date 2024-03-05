@@ -14,7 +14,7 @@ const filterBooks = (fuse, query) => {
 const bookReducer = (state, action) => {
   const { type, payload } = action;
   // Destructure state
-  const { bookArray, displayedBooks, newEntry } = state;
+  const { bookArray, displayedBooks } = state;
 
   switch (type) {
 
@@ -23,27 +23,6 @@ const bookReducer = (state, action) => {
         ...state,
         bookArray: [...bookArray, payload], // Update the full books list
         displayedBooks: [...bookArray, payload], // Also update displayed books list
-      };
-
-    case "RESET_FORM":
-      return {
-        ...state,
-        newEntry: {
-          title: "",
-          author: "",
-          imgSrc: "",
-          year: "",
-          review: "",
-        },
-      };
-
-    case "UPDATE_FORM":
-      return {
-        ...state,
-        newEntry: {
-          ...newEntry,
-          ...payload, // Spread because it's a property for an object
-        },
       };
 
     case 'SEARCH':
@@ -92,11 +71,4 @@ export function useBooksActions () {
 const initialState = {
   bookArray: booksData,
   displayedBooks: booksData,
-  newEntry: {
-    title: "",
-    author: "",
-    imgSrc: "",
-    year: "",
-    review: "",
-  },
 };

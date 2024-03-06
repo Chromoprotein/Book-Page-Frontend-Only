@@ -22,6 +22,10 @@ const router = createBrowserRouter([
     path: "upload",
     element: <BookForm/>
   },
+  {
+    path: "edit/:id",
+    element: <BookForm/>
+  }
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

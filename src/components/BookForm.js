@@ -6,17 +6,27 @@ import { InputElement, TextAreaElement } from "./smallComponents/InputElement";
 import DropDownElement from "./smallComponents/DropDownElement";
 import { yearsArray } from "../utils/yearsArray";
 import Background from "./smallComponents/Background";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useBooks } from "../contexts/BookContext";
 
 export default function BookForm() {
-  
-  const emptyForm = {
+
+  const { state } = useBooks();
+  const { bookArray } = state;
+
+  // For edit pages
+  const { id } = useParams();
+
+  const emptyForm = id 
+  ? bookArray.find((book) => book.title === id) 
+  : {
     title: "",
     author: "",
     imgSrc: "",
     year: "",
     review: "",
-  }
+  };
+
   const [formState, setFormState] = useState(emptyForm);
   const { dispatch } = useBooksActions();
 
@@ -47,15 +57,22 @@ export default function BookForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Dispatch an action to add a new book
-    dispatch({ type: "ADD_BOOK", payload: formState });
-
-    // Dispatch an action to reset the form
-    setFormState(emptyForm);
-
-    navigate("/");
-
+    if(id) {
+      // Dispatch an action to edit a book
+      dispatch({ type: "EDIT_BOOK", payload: formState });
+      navigate(`/book/${encodeURIComponent(id)}`);
+    } else {
+      // Dispatch an action to add a new book
+      dispatch({ type: "ADD_BOOK", payload: formState });
+      setFormState(emptyForm);
+      navigate("/");
+    }
   };
+
+  const handleDelete = () => {
+    dispatch({ type: "DELETE_BOOK", payload: formState })
+    navigate("/");
+  }
 
   return (
     <Background>
@@ -88,6 +105,8 @@ export default function BookForm() {
             <Button buttonType="submit" isDisabled={isEmpty}>
               Submit
             </Button>
+
+            {id && <Button buttonType="button" buttonOnClick={handleDelete}>Delete</Button>}
           </form>
     </Background>
   );

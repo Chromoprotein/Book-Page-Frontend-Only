@@ -25,6 +25,30 @@ const bookReducer = (state, action) => {
         displayedBooks: [...bookArray, payload], // Also update displayed books list
       };
 
+    case "EDIT_BOOK":
+      const updatedBooks = bookArray.map(oldBook => {
+        console.log(payload.title)
+        if(oldBook.title === payload.title) {
+          return payload;
+        }
+        else {
+          return oldBook;
+        }
+      });
+      return {
+        ...state,
+        bookArray: updatedBooks,
+        displayedBooks: updatedBooks,
+      };
+
+    case "DELETE_BOOK":
+      const keptBooks = bookArray.filter(book => book.title !== payload.title);
+      return {
+        ...state,
+        bookArray: keptBooks,
+        displayedBooks: keptBooks,
+      };
+
     case 'SEARCH':
       const searchResults = payload.query ? filterBooks(payload.fuse, payload.query) : state.bookArray;
       return { ...state, displayedBooks: searchResults };

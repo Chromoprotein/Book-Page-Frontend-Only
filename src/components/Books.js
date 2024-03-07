@@ -55,8 +55,24 @@ export default function Books() {
     setSortOption('');
   };
   
-  // MAP REFINED BOOKS FOR DISPLAY
-  const listBooks = displayedBooks
+  // PAGINATION
+  const [currentPage, setCurrentPage] = useState(1);
+  
+  const totalPages = Math.ceil(displayedBooks.length / 10);
+  const lastItemIndex = currentPage * 10;
+  const firstItemIndex = lastItemIndex - 10;
+
+  const paginatedBooks = displayedBooks.slice(firstItemIndex, lastItemIndex);
+
+  // Pagination controls
+  const goAnywhere = (number) => setCurrentPage(number);
+  const goBack = () => setCurrentPage((prevCurrentPage) => Math.max(prevCurrentPage - 1, 1))
+  const goForward = () => setCurrentPage((prevCurrentPage) => Math.min(prevCurrentPage + 1, totalPages));
+
+  const paginationButtonNumbers = Array.from({ length: totalPages }, (_, index) => index + 1);
+
+  // MAP refined and paginated books for DISPLAY
+  const listBooks = paginatedBooks
       .map((book, index) => (
       <Book key={index} book={book} />
   ));
@@ -87,6 +103,14 @@ export default function Books() {
       </BasicFlexbox> : 
       <SmallInfoContainer>No books found for this search or filter.</SmallInfoContainer>
       }
+
+      <div className="flex flex-row flex-wrap">
+        <Button buttonType="button" buttonOnClick={goBack}>Previous</Button>
+        {paginationButtonNumbers.map((paginationNumber) => {
+          return <Button buttonType="button" buttonOnClick={() => goAnywhere(paginationNumber)}>{paginationNumber}</Button>
+        })}
+        <Button buttonType="button" buttonOnClick={goForward}>Next</Button>
+      </div>
     </Background>
   );
 }

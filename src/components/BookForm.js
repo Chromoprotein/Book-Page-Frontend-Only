@@ -6,7 +6,7 @@ import { InputElement, TextAreaElement } from "./smallComponents/InputElement";
 import DropDownElement from "./smallComponents/DropDownElement";
 import { yearsArray } from "../utils/yearsArray";
 import Background from "./smallComponents/Background";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import { useBooks } from "../contexts/BookContext";
 
 export default function BookForm() {
@@ -105,6 +105,10 @@ export default function BookForm() {
             <Button buttonType="submit" isDisabled={isEmpty}>
               Submit
             </Button>
+
+            <Link to={`/`}>
+              <Button buttonType="button">Return</Button>
+            </Link>
 
             {id && <Button buttonType="button" buttonOnClick={handleDelete}>Delete</Button>}
           </form>

@@ -10,6 +10,7 @@ import { WhiteTextLine } from "./smallComponents/TextLines";
 import StarMaker from "../utils/StarMaker";
 import BookCover from "./smallComponents/BookCover";
 import SmallInfoContainer from "./smallComponents/SmallInfoContainer";
+import { VscEdit } from "react-icons/vsc";
 
 // The page that displays a book separately
 
@@ -49,8 +50,15 @@ export default function BookDetails() {
               </div>
             </div>
 
-            <div className="bg-slate-700 px-0 py-2 m-0 w-full rounded-br-lg rounded-bl-lg md:rounded-bl-none">
-              <Link to={`/`}><Button buttonType="button">Return</Button></Link>
+            <div className="bg-slate-700 px-0 py-2 m-0 w-full rounded-br-lg rounded-bl-lg md:rounded-bl-none flex flex-row flex-wrap gap-1 justify-center">
+              <Link to={`/edit/${encodeURIComponent(title)}`}>
+                <Button buttonType="button">
+                    <VscEdit /> Edit
+                </Button>
+              </Link>
+              <Link to={`/`}>
+                <Button buttonType="button">Return</Button>
+              </Link>
             </div>
           </div>
 

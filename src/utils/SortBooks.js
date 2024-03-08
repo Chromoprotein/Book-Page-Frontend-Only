@@ -7,26 +7,26 @@ export const sortBooks = (books, sortOption) => {
         };
 
         switch (sortOption) {
-            case 'title-asc':
-            case 'title-desc':
+            case 'Title A-Z':
+            case 'Title Z-A':
                 valA = getTitleWithoutArticle(a.title);
                 valB = getTitleWithoutArticle(b.title);
                 break;
-            case 'author-asc':
-            case 'author-desc':
+            case 'Author A-Z':
+            case 'Author Z-A':
                 valA = a.author.split(' ').pop().toUpperCase(); // Assuming sorting by last name
                 valB = b.author.split(' ').pop().toUpperCase();
                 break;
-            case 'rating-asc':
+            case 'Rating 1-5':
                 return a.stars - b.stars;
-            case 'rating-desc':
+            case 'Rating 5-1':
                 return b.stars - a.stars;
             default:
                 return 0;
         }
 
-        if (valA < valB) return sortOption.endsWith('desc') ? 1 : -1;
-        if (valA > valB) return sortOption.endsWith('desc') ? -1 : 1;
+        if (valA < valB) return sortOption.endsWith('Z-A' || '1-5') ? 1 : -1;
+        if (valA > valB) return sortOption.endsWith('Z-A' || '1-5') ? -1 : 1;
         return 0;
     });
 };

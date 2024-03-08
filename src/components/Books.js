@@ -38,6 +38,13 @@ export default function Books() {
   const handleSearchClick = () => {
     dispatch({ type: 'SEARCH', payload: { query, fuse } });
   };
+
+  // Trigger search by enter
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      handleSearchClick();
+    }
+  };
  
   // SORTING
   const [sortOption, setSortOption] = useState('');
@@ -57,10 +64,16 @@ export default function Books() {
   
   // PAGINATION
   const [currentPage, setCurrentPage] = useState(1);
+  const [booksPerPage, setBooksPerPage] = useState(10);
   
-  const totalPages = Math.ceil(displayedBooks.length / 10);
-  const lastItemIndex = currentPage * 10;
-  const firstItemIndex = lastItemIndex - 10;
+  const handleBooksPerPage = (e) => {
+    const newBooksPerPage = Math.min(e.target.value, displayedBooks.length);
+    setBooksPerPage(newBooksPerPage);
+  }
+
+  const totalPages = Math.ceil(displayedBooks.length / booksPerPage);
+  const lastItemIndex = currentPage * booksPerPage;
+  const firstItemIndex = lastItemIndex - booksPerPage;
 
   const paginatedBooks = displayedBooks.slice(firstItemIndex, lastItemIndex);
 
@@ -77,7 +90,7 @@ export default function Books() {
       <Book key={index} book={book} />
   ));
 
-  const sortArray = ["title-asc", "title-desc", "author-asc", "author-desc", "rating-desc", "rating-asc"];
+  const sortArray = ["Title A-Z", "Title Z-A", "Author A-Z", "Author Z-A", "Rating 5-1", "Rating 1-5"];
 
   return (
     <Background>
@@ -88,6 +101,7 @@ export default function Books() {
             placeholder="Search for books or authors"
             value={query}
             onChange={handleChangeInput}
+            handleKeyDown={handleKeyDown}
           />
           <Button buttonOnClick={handleSearchClick}>Search</Button>
         </div>
@@ -105,6 +119,8 @@ export default function Books() {
       }
 
       <div className="flex flex-row flex-wrap">
+        <DropDownElement text="Display" name="display" options={[10, 20, 50]} selectedOption={booksPerPage} eventHandler={handleBooksPerPage} />
+
         <Button buttonType="button" buttonOnClick={goBack}>Previous</Button>
         {paginationButtonNumbers.map((paginationNumber) => {
           return <Button buttonType="button" buttonOnClick={() => goAnywhere(paginationNumber)}>{paginationNumber}</Button>

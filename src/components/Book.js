@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import Button from "./smallComponents/Button";
 import coverImage from "../utils/CoverImage";
 import BookText from "./smallComponents/BookText";
-import { VscEdit } from "react-icons/vsc";
 import { VscLibrary } from "react-icons/vsc";
 import StarMaker from "../utils/StarMaker";
 import BookCover from "./smallComponents/BookCover";
@@ -26,11 +25,6 @@ export default function Book({ book: { title, series, author, imgSrc, stars } })
             <Link to={`/book/${encodeURIComponent(title)}`}>
               <Button buttonType="button">
                   <VscLibrary /> Details
-              </Button>
-            </Link>
-            <Link to={`/edit/${encodeURIComponent(title)}`}>
-              <Button buttonType="button">
-                  <VscEdit /> Edit
               </Button>
             </Link>
           </div>

@@ -1,6 +1,6 @@
 import { WhiteTextLine } from "./TextLines";
 
-export function InputElement({ labelText, placeholder, name, value, onChange }) {
+export function InputElement({ labelText, placeholder, name, value, onChange, handleKeyDown }) {
     return (
       <label>
         {labelText && <WhiteTextLine>{labelText}</WhiteTextLine>}
@@ -9,6 +9,7 @@ export function InputElement({ labelText, placeholder, name, value, onChange }) 
           value={value}
           onChange={onChange}
           placeholder={placeholder}
+          onKeyDown={handleKeyDown} // Enter triggers a button if needed
           required
         />
       </label>

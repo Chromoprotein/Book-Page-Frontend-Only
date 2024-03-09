@@ -64,16 +64,17 @@ export default function Books() {
   
   // PAGINATION
   const [currentPage, setCurrentPage] = useState(1);
-  const [booksPerPage, setBooksPerPage] = useState(10);
+  const [booksPerPage, setBooksPerPage] = useState({maxBooks: 10, trueBooks: 10});
   
   const handleBooksPerPage = (e) => {
-    const newBooksPerPage = Math.min(e.target.value, displayedBooks.length);
-    setBooksPerPage(newBooksPerPage);
+    const maxBooksPerPage = e.target.value;
+    const trueBooksPerPage = Math.min(maxBooksPerPage, displayedBooks.length);
+    setBooksPerPage({maxBooks: maxBooksPerPage, trueBooks: trueBooksPerPage });
   }
 
-  const totalPages = Math.ceil(displayedBooks.length / booksPerPage);
-  const lastItemIndex = currentPage * booksPerPage;
-  const firstItemIndex = lastItemIndex - booksPerPage;
+  const totalPages = Math.ceil(displayedBooks.length / booksPerPage.maxBooks);
+  const lastItemIndex = currentPage * booksPerPage.maxBooks;
+  const firstItemIndex = lastItemIndex - booksPerPage.maxBooks;
 
   const paginatedBooks = displayedBooks.slice(firstItemIndex, lastItemIndex);
 
@@ -119,7 +120,7 @@ export default function Books() {
       }
 
       <div className="flex flex-row flex-wrap">
-        <DropDownElement text="Display" name="display" options={[10, 20, 50]} selectedOption={booksPerPage} eventHandler={handleBooksPerPage} />
+        <DropDownElement text="Display" name="display" options={[10, 20, 50]} selectedOption={booksPerPage.maxBooks} eventHandler={handleBooksPerPage} />
 
         <Button buttonType="button" buttonOnClick={goBack}>Previous</Button>
         {paginationButtonNumbers.map((paginationNumber) => {

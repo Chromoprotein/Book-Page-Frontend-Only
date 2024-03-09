@@ -1,5 +1,6 @@
 const booksData = [
   {
+    id: "1",
     title: "Journey of the Pharaohs",
     author: "Clive Cussler",
     series: "Numa Files",
@@ -10,6 +11,7 @@ const booksData = [
     stars: 3,
   },
   {
+    id: "2",
     title: "Pimeitten vetten paholainen",
     author: "Stuart Turton",
     imgSrc:
@@ -19,6 +21,7 @@ const booksData = [
     stars: 4,
   },
   {
+    id: "3",
     title: "Voidgod",
     series: "Savage Dominion #3",
     author: "G. D. Penman and Luke Chmilenko",
@@ -28,6 +31,7 @@ const booksData = [
     stars: 5,
   },
   {
+    id: "4",
     title: "Oh God, Not Again",
     author: "Sarah1281",
     year: "2023",
@@ -35,6 +39,7 @@ const booksData = [
     stars: 3,
   },
   {
+    id: "5",
     title: "Vanki nimeltä Papillon",
     author: "Henri Charrière",
     year: "2023",
@@ -43,6 +48,7 @@ const booksData = [
     imgSrc: "https://upload.wikimedia.org/wikipedia/fi/6/65/Papillonkirja.jpg",
   },
   {
+    id: "6",
     title: "Children of Hope ",
     series: "Seafort Saga #7",
     author: "David Feintuch",
@@ -52,6 +58,7 @@ const booksData = [
     imgSrc: "https://m.media-amazon.com/images/I/51VX-WfD4vL.jpg",
   },
   {
+    id: "7",
     title: "Avaruuslaivan kadetti",
     author: "Robert Heinlen",
     year: "2023",
@@ -60,6 +67,7 @@ const booksData = [
     imgSrc: "https://upload.wikimedia.org/wikipedia/en/2/20/Sc48.jpg",
   },
   {
+    id: "8",
     title: "Patriarch's Hope",
     series: "Seafort Saga #6",
     author: "David Feintuch",
@@ -68,6 +76,7 @@ const booksData = [
     stars: 4.5,
   },
   {
+    id: "9",
     title: "Voices of Hope",
     series: "Seafort Saga #5",
     author: "David Feintuch",
@@ -75,24 +84,28 @@ const booksData = [
     stars: 2,
   },
   {
+    id: "10",
     title: "Doll in the Jewellery Box",
     author: "Stitchgunk",
     year: "2023",
     stars: 5,
   },
   {
+    id: "11",
     title: "Pohjolan joulu, perinteitä kekristä nuuttiin",
     author: "Aki Pulkkanen",
     year: "2023",
     stars: 3,
   },
   {
+    id: "12",
     title: "A Soul to Keep",
     author: "Opal Reyne",
     year: "2023",
     stars: 1,
   },
   {
+    id: "13",
     title: "The Stainless Steel Rat Goes to Hell",
     series: "The Stainless Steel Rat Series",
     author: "Harry Harrison",
@@ -100,6 +113,7 @@ const booksData = [
     stars: 4,
   },
   {
+    id: "14",
     title: "The Stainless Steel Rat Joins the Circus",
     series: "The Stainless Steel Rat Series",
     author: "Harry Harrison",
@@ -107,6 +121,7 @@ const booksData = [
     stars: 3,
   },
   {
+    id: "15",
     title: "The Stainless Steel Rat Gets Drafted",
     series: "The Stainless Steel Rat Series",
     author: "Harry Harrison",
@@ -114,18 +129,21 @@ const booksData = [
     stars: 5,
   },
   {
+    id: "16",
     title: "Tuntematon kersantti",
     author: "Lasse Lehtinen",
     year: "2023",
     stars: 5,
   },
   {
+    id: "17",
     title: "Sniper One",
     author: "D. A. N. Mills",
     year: "2023",
     stars: 3,
   },
   {
+    id: "18",
     title: "Teräsrotta presidentiksi",
     series: "The Stainless Steel Rat Series",
     author: "Harry Harrison",
@@ -133,6 +151,7 @@ const booksData = [
     stars: 5,
   },
   {
+    id: "19",
     title: "Rebirth",
     series: "Necrotic Apocalypse #5",
     author: "David Petrie",
@@ -140,12 +159,14 @@ const booksData = [
     stars: 3,
   },
   {
+    id: "20",
     title: "Morsianten laiva",
     author: "Jojo Moyes",
     year: "2023",
     stars: 3,
   },
   {
+    id: "21",
     title: "Sydämiä seireeneille",
     series: "Suomea lohikäärmeille #2",
     author: "Briitta Hepo-oja",
@@ -153,6 +174,7 @@ const booksData = [
     stars: 3,
   },
   {
+    id: "22",
     title: "Suomea lohikäärmeille",
     series: "Suomea lohikäärmeille #1",
     author: "Briitta Hepo-oja",
@@ -160,6 +182,7 @@ const booksData = [
     stars: 5,
   },
   {
+    id: "23",
     title: "Life Reset",
     series: "New Era Online #1",
     author: "Shemer Kuznits",

@@ -6,4 +6,4 @@ export default function SmallInfoContainer({ children }) {
         <WhiteTextLine>{ children }</WhiteTextLine>
       </div>
     );
-}
+} 

@@ -27,8 +27,7 @@ const bookReducer = (state, action) => {
 
     case "EDIT_BOOK":
       const updatedBooks = bookArray.map(oldBook => {
-        console.log(payload.title)
-        if(oldBook.title === payload.title) {
+        if(oldBook.id === payload.id) {
           return payload;
         }
         else {
@@ -42,7 +41,7 @@ const bookReducer = (state, action) => {
       };
 
     case "DELETE_BOOK":
-      const keptBooks = bookArray.filter(book => book.title !== payload.title);
+      const keptBooks = bookArray.filter(book => book.id !== payload.id);
       return {
         ...state,
         bookArray: keptBooks,

@@ -7,10 +7,10 @@ import { VscLibrary } from "react-icons/vsc";
 import StarMaker from "../utils/StarMaker";
 import BookCover from "./smallComponents/BookCover";
 
-export default function Book({ book: { title, series, author, imgSrc, stars } }) {
+export default function Book({ book: { id, title, series, author, imgSrc, stars, year } }) {
 
   // Cover image or placeholder
-  const cover = coverImage({ title, series, author, imgSrc, stars });
+  const cover = coverImage({ id, title, series, author, imgSrc, stars, year });
 
   return (
     <div className="bg-slate-800 rounded-lg w-96 max-w-full basis-1/3 md:h-96">
@@ -19,10 +19,10 @@ export default function Book({ book: { title, series, author, imgSrc, stars } })
         <BookCover img={cover} />
 
         <div className="flex flex-col justify-between gap-1">
-          <BookText series={series} title={title} author={author} />
+          <BookText series={series} title={title} author={author} year={year} />
           <StarMaker stars={stars} />
           <div className="mb-2">
-            <Link to={`/book/${encodeURIComponent(title)}`}>
+            <Link to={`/book/${encodeURIComponent(id)}`}>
               <Button buttonType="button">
                   <VscLibrary /> Details
               </Button>

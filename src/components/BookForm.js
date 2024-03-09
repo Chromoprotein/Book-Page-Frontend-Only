@@ -8,6 +8,9 @@ import { yearsArray } from "../utils/yearsArray";
 import Background from "./smallComponents/Background";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { useBooks } from "../contexts/BookContext";
+import SmallInfoContainer from "./smallComponents/SmallInfoContainer";
+import returnAfterTimeout from "../utils/returnAfterTimeout";
+import { v4 as uuidv4 } from 'uuid';
 
 export default function BookForm() {
 
@@ -18,7 +21,7 @@ export default function BookForm() {
   const { id } = useParams();
 
   const emptyForm = id 
-  ? bookArray.find((book) => book.title === id) 
+  ? bookArray.find((book) => book.id === id) 
   : {
     title: "",
     author: "",
@@ -28,6 +31,8 @@ export default function BookForm() {
   };
 
   const [formState, setFormState] = useState(emptyForm);
+  const [successMessage, setSuccessMessage] = useState('');
+
   const { dispatch } = useBooksActions();
 
   // To return after submitting the form
@@ -60,18 +65,21 @@ export default function BookForm() {
     if(id) {
       // Dispatch an action to edit a book
       dispatch({ type: "EDIT_BOOK", payload: formState });
-      navigate(`/book/${encodeURIComponent(id)}`);
+      setSuccessMessage("Changes saved");
+      returnAfterTimeout(navigate, `/book/${encodeURIComponent(id)}`);
     } else {
       // Dispatch an action to add a new book
-      dispatch({ type: "ADD_BOOK", payload: formState });
-      setFormState(emptyForm);
-      navigate("/");
+      const uniqueId = uuidv4();
+      dispatch({ type: "ADD_BOOK", payload: {...formState, id: uniqueId} });
+      setSuccessMessage("New book uploaded");
+      returnAfterTimeout(navigate, `/book/${encodeURIComponent(uniqueId)}`);
     }
   };
 
   const handleDelete = () => {
     dispatch({ type: "DELETE_BOOK", payload: formState })
-    navigate("/");
+    setSuccessMessage("Book deleted");
+    returnAfterTimeout(navigate, "/");
   }
 
   return (
@@ -101,6 +109,8 @@ export default function BookForm() {
             <DropDownElement text="Read year" name="year" options={yearsArray} selectedOption={formState.year} eventHandler={handleFormChange} />
 
             <TextAreaElement labelText="Write a short review" name="review" value={formState.review} onChange={handleFormChange} />
+
+            {successMessage && <SmallInfoContainer>{successMessage}</SmallInfoContainer>}
 
             <Button buttonType="submit" isDisabled={isEmpty}>
               Submit

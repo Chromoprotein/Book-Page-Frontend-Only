@@ -23,8 +23,8 @@ export default function BookDetails() {
   const { bookArray } = state;
 
   // Find the URL title from the book array
-  const book = bookArray.find((obj) => obj.title === id);
-  const {title, series, author, review, stars } = book;
+  const book = bookArray.find((obj) => obj.id === id);
+  const {title, series, author, review, stars, year } = book;
 
   // Get the cover image
   const imgSrc = coverImage(book);
@@ -44,14 +44,14 @@ export default function BookDetails() {
           <div className="flex flex-col justify-between rounded-br-lg rounded-bl-lg md:rounded-bl-none">
             <div className="p-4 flex flex-col justify-between">
               <div>
-                <BookText series={series} title={title} author={author} />
+                <BookText series={series} title={title} author={author} year={year} />
                 <StarMaker stars={stars} />
                 <WhiteTextLine>{reviewContent}</WhiteTextLine>
               </div>
             </div>
 
             <div className="bg-slate-700 px-0 py-2 m-0 w-full rounded-br-lg rounded-bl-lg md:rounded-bl-none flex flex-row flex-wrap gap-1 justify-center">
-              <Link to={`/edit/${encodeURIComponent(title)}`}>
+              <Link to={`/edit/${encodeURIComponent(id)}`}>
                 <Button buttonType="button">
                     <VscEdit /> Edit
                 </Button>

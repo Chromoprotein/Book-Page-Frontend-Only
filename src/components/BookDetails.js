@@ -24,7 +24,7 @@ export default function BookDetails() {
 
   // Find the URL title from the book array
   const book = bookArray.find((obj) => obj.id === id);
-  const {title, series, author, review, stars, year } = book;
+  const {title, series, author, review, stars, year, genre } = book;
 
   // Get the cover image
   const imgSrc = coverImage(book);
@@ -44,7 +44,7 @@ export default function BookDetails() {
           <div className="flex flex-col justify-between rounded-br-lg rounded-bl-lg md:rounded-bl-none">
             <div className="p-4 flex flex-col justify-between">
               <div>
-                <BookText series={series} title={title} author={author} year={year} />
+                <BookText series={series} title={title} author={author} year={year} genre={genre.charAt(0).toUpperCase() + genre.slice(1)} />
                 <StarMaker stars={stars} />
                 <WhiteTextLine>{reviewContent}</WhiteTextLine>
               </div>

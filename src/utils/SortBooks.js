@@ -21,12 +21,16 @@ export const sortBooks = (books, sortOption) => {
                 return a.stars - b.stars;
             case 'Rating 5-1':
                 return b.stars - a.stars;
+            case 'Year newest':
+                return b.year - a.year;
+            case 'Year oldest':
+                return a.year - b.year;
             default:
                 return 0;
         }
 
-        if (valA < valB) return sortOption.endsWith('Z-A' || '1-5') ? 1 : -1;
-        if (valA > valB) return sortOption.endsWith('Z-A' || '1-5') ? -1 : 1;
+        if (valA < valB) return sortOption.endsWith('Z-A') ? 1 : -1;
+        if (valA > valB) return sortOption.endsWith('Z-A') ? -1 : 1;
         return 0;
     });
 };

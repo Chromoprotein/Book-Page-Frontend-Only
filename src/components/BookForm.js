@@ -11,6 +11,8 @@ import { useBooks } from "../contexts/BookContext";
 import SmallInfoContainer from "./smallComponents/SmallInfoContainer";
 import returnAfterTimeout from "../utils/returnAfterTimeout";
 import { v4 as uuidv4 } from 'uuid';
+import { FaRegStar, FaStar } from "react-icons/fa";
+import IconContainer from "../components/smallComponents/IconContainer";
 
 export default function BookForm() {
 
@@ -28,6 +30,7 @@ export default function BookForm() {
     imgSrc: "",
     year: "",
     review: "",
+    genre: "",
   };
 
   const [formState, setFormState] = useState(emptyForm);
@@ -82,6 +85,12 @@ export default function BookForm() {
     returnAfterTimeout(navigate, "/");
   }
 
+  const [rating, setRating] = useState(0);
+
+  const handleStarClick = (index) => {
+      setRating(index);
+  };
+
   return (
     <Background>
         <form className="bg-slate-800 rounded-lg p-3 w-96 flex flex-col justify-center items-center mx-auto" onSubmit={handleSubmit}>
@@ -106,9 +115,19 @@ export default function BookForm() {
 
             <InputElement labelText="Author name" name="author" value={formState.author} onChange={handleFormChange} />
 
+            <InputElement labelText="Genre" name="genre" value={formState.genre} onChange={handleFormChange} />
+
             <DropDownElement text="Read year" name="year" options={yearsArray} selectedOption={formState.year} eventHandler={handleFormChange} />
 
             <TextAreaElement labelText="Write a short review" name="review" value={formState.review} onChange={handleFormChange} />
+
+            <IconContainer>
+                {[...Array(5)].map((_, index) => (
+                    <span key={index} onClick={() => handleStarClick(index + 1)}>
+                        {index < rating ? <FaStar /> : <FaRegStar />}
+                    </span>
+                ))}
+            </IconContainer>
 
             {successMessage && <SmallInfoContainer>{successMessage}</SmallInfoContainer>}
 

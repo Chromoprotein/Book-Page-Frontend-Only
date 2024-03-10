@@ -535,6 +535,10 @@ video {
   --tw-backdrop-sepia:  ;
 }
 
+.invisible {
+  visibility: hidden;
+}
+
 .fixed {
   position: fixed;
 }
@@ -665,6 +669,10 @@ video {
   flex-basis: 33.333333%;
 }
 
+.flex-row {
+  flex-direction: row;
+}
+
 .flex-col {
   flex-direction: column;
 }
@@ -744,6 +752,11 @@ video {
 .border-sky-700 {
   --tw-border-opacity: 1;
   border-color: rgb(3 105 161 / var(--tw-border-opacity));
+}
+
+.bg-purple-800 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(107 33 168 / var(--tw-bg-opacity));
 }
 
 .bg-slate-700 {
@@ -920,9 +933,59 @@ video {
   box-sizing: border-box;
 }
 
-.odd\:bg-purple-200:nth-child(odd) {
-  --tw-bg-opacity: 1;
-  background-color: rgb(233 213 255 / var(--tw-bg-opacity));
+.before\:visible::before {
+  content: var(--tw-content);
+  visibility: visible;
+}
+
+.before\:content-\[\'\\u2605\'\]::before {
+  --tw-content: '\u2605';
+  content: var(--tw-content);
+}
+
+.before\:content-\[\'\\2605\'\]::before {
+  --tw-content: '\2605';
+  content: var(--tw-content);
+}
+
+.before\:content-\[\'\\2606\'\]::before {
+  --tw-content: '\2606';
+  content: var(--tw-content);
+}
+
+.before\:content-\[\'\\\\2606\'\]::before {
+  --tw-content: '\\2606';
+  content: var(--tw-content);
+}
+
+.before\:content-\[\'\2606\'\]::before {
+  --tw-content: '☆';
+  content: var(--tw-content);
+}
+
+.checked\:before\:content-\[\'\\u2606\'\]:checked::before {
+  --tw-content: '\u2606';
+  content: var(--tw-content);
+}
+
+.checked\:before\:content-\[\'\\2606\'\]:checked::before {
+  --tw-content: '\2606';
+  content: var(--tw-content);
+}
+
+.checked\:before\:content-\[\'\\2605\'\]:checked::before {
+  --tw-content: '\2605';
+  content: var(--tw-content);
+}
+
+.checked\:before\:content-\[\'\\\\2605\'\]:checked::before {
+  --tw-content: '\\2605';
+  content: var(--tw-content);
+}
+
+.checked\:before\:content-\[\'\2605\'\]:checked::before {
+  --tw-content: '★';
+  content: var(--tw-content);
 }
 
 .hover\:bg-purple-800:hover {
@@ -952,6 +1015,20 @@ video {
 .focus\:outline-none:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
+}
+
+.disabled\:bg-slate-700:disabled {
+  --tw-bg-opacity: 1;
+  background-color: rgb(51 65 85 / var(--tw-bg-opacity));
+}
+
+.disabled\:text-slate-900:disabled {
+  --tw-text-opacity: 1;
+  color: rgb(15 23 42 / var(--tw-text-opacity));
+}
+
+.disabled\:hover\:opacity-100:hover:disabled {
+  opacity: 1;
 }
 
 @media (min-width: 768px) {

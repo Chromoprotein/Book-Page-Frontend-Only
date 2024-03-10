@@ -9,6 +9,7 @@ const booksData = [
     year: "2023",
     review: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     stars: 3,
+    genre: "adventure",
   },
   {
     id: "2",
@@ -19,6 +20,7 @@ const booksData = [
     year: "2023",
     review: "4/5, a happily evil ending",
     stars: 4,
+    genre: "mystery",
   },
   {
     id: "3",
@@ -29,6 +31,7 @@ const booksData = [
     year: "2023",
     review: "5/5, this will make you cry",
     stars: 5,
+    genre: "fantasy",
   },
   {
     id: "4",
@@ -37,6 +40,7 @@ const booksData = [
     year: "2023",
     review: "3/5, I literally don't remember",
     stars: 3,
+    genre: "fanfiction",
   },
   {
     id: "5",
@@ -46,16 +50,18 @@ const booksData = [
     review: "3/5, feels like it didn't do what it promised",
     stars: 3.5,
     imgSrc: "https://upload.wikimedia.org/wikipedia/fi/6/65/Papillonkirja.jpg",
+    genre: "adventure",
   },
   {
     id: "6",
-    title: "Children of Hope ",
+    title: "Children of Hope",
     series: "Seafort Saga #7",
     author: "David Feintuch",
     year: "2023",
     review: "3/5, the new main character pales in comparison to the old",
     stars: 3,
     imgSrc: "https://m.media-amazon.com/images/I/51VX-WfD4vL.jpg",
+    genre: "sci-fi",
   },
   {
     id: "7",
@@ -65,6 +71,7 @@ const booksData = [
     review: "3/5, hasn't aged well",
     stars: 3,
     imgSrc: "https://upload.wikimedia.org/wikipedia/en/2/20/Sc48.jpg",
+    genre: "sci-fi",
   },
   {
     id: "8",
@@ -74,6 +81,7 @@ const booksData = [
     year: "2023",
     review: "4/5, it'll make you cry",
     stars: 4.5,
+    genre: "sci-fi",
   },
   {
     id: "9",
@@ -82,6 +90,7 @@ const booksData = [
     author: "David Feintuch",
     year: "2023",
     stars: 2,
+    genre: "sci-fi",
   },
   {
     id: "10",
@@ -89,6 +98,7 @@ const booksData = [
     author: "Stitchgunk",
     year: "2023",
     stars: 5,
+    genre: "webnovel",
   },
   {
     id: "11",
@@ -96,6 +106,7 @@ const booksData = [
     author: "Aki Pulkkanen",
     year: "2023",
     stars: 3,
+    genre: "nonfiction",
   },
   {
     id: "12",
@@ -103,6 +114,7 @@ const booksData = [
     author: "Opal Reyne",
     year: "2023",
     stars: 1,
+    genre: "romance",
   },
   {
     id: "13",
@@ -111,6 +123,7 @@ const booksData = [
     author: "Harry Harrison",
     year: "2023",
     stars: 4,
+    genre: "sci-fi",
   },
   {
     id: "14",
@@ -119,6 +132,7 @@ const booksData = [
     author: "Harry Harrison",
     year: "2023",
     stars: 3,
+    genre: "sci-fi",
   },
   {
     id: "15",
@@ -127,6 +141,7 @@ const booksData = [
     author: "Harry Harrison",
     year: "2023",
     stars: 5,
+    genre: "sci-fi",
   },
   {
     id: "16",
@@ -134,6 +149,7 @@ const booksData = [
     author: "Lasse Lehtinen",
     year: "2023",
     stars: 5,
+    genre: "war",
   },
   {
     id: "17",
@@ -141,6 +157,7 @@ const booksData = [
     author: "D. A. N. Mills",
     year: "2023",
     stars: 3,
+    genre: "war",
   },
   {
     id: "18",
@@ -149,6 +166,7 @@ const booksData = [
     author: "Harry Harrison",
     year: "2023",
     stars: 5,
+    genre: "sci-fi",
   },
   {
     id: "19",
@@ -157,6 +175,7 @@ const booksData = [
     author: "David Petrie",
     year: "2023",
     stars: 3,
+    genre: "fantasy",
   },
   {
     id: "20",
@@ -164,6 +183,7 @@ const booksData = [
     author: "Jojo Moyes",
     year: "2023",
     stars: 3,
+    genre: "romance",
   },
   {
     id: "21",
@@ -172,6 +192,7 @@ const booksData = [
     author: "Briitta Hepo-oja",
     year: "2023",
     stars: 3,
+    genre: "fantasy",
   },
   {
     id: "22",
@@ -180,6 +201,7 @@ const booksData = [
     author: "Briitta Hepo-oja",
     year: "2023",
     stars: 5,
+    genre: "fantasy",
   },
   {
     id: "23",
@@ -188,6 +210,7 @@ const booksData = [
     author: "Shemer Kuznits",
     year: "2023",
     stars: 4,
+    genre: "fantasy",
   },
 ];
 

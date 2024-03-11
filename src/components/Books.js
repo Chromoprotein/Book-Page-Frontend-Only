@@ -11,6 +11,7 @@ import Fuse from 'fuse.js';
 import DropDownElement from "./smallComponents/DropDownElement";
 import Button from "./smallComponents/Button";
 import { InputElement } from "./smallComponents/InputElement";
+import genreArray from "../utils/genreArray";
 
 export default function Books() {
 
@@ -20,6 +21,20 @@ export default function Books() {
   // Dispatch function from context
   const { dispatch } = useBooksActions();
 
+  // FILTER
+  const [filterQuery, setFilterQuery] = useState('');
+
+  const handleFilter = (e) => {
+    // If there is a previous filter, reset to prevent double filtering. A more complex state would be needed to re-filter old search results
+    if(filterQuery) {
+      resetSearch();
+    }
+    const newFilterQuery = e.target.value;
+    setFilterQuery(newFilterQuery);
+
+    dispatch({ type: 'FILTER_GENRE', payload: newFilterQuery });
+  }
+
   // SEARCH
   const [query, setQuery] = useState('');
   // Set up Fuse
@@ -28,7 +43,9 @@ export default function Books() {
     threshold: 0.2, // Lower means more strict match
     keys: ["title", "author"],
   };
-  const fuse = new Fuse(bookArray, searchOptions);
+  // If a genre filter is on, search from the filtered books, else, search from all books
+  const fuse = filterQuery ? new Fuse(displayedBooks, searchOptions) : new Fuse(bookArray, searchOptions);
+
   // Input field event handler
   const handleChangeInput = (e) => {
     const newInput = e.target.value;
@@ -54,12 +71,14 @@ export default function Books() {
     setSortOption(newSortOption);
     dispatch({ type: 'SORT', payload: { newSortOption } });
   };
+  const sortArray = ["Title A-Z", "Title Z-A", "Author A-Z", "Author Z-A", "Rating 5-1", "Rating 1-5", "Year newest", "Year oldest"];
 
   // RESET FILTERS
   const resetSearch = () => {
     dispatch({ type: 'RESET_FILTERS' });
     setQuery('');
     setSortOption('');
+    setFilterQuery('');
   };
   
   // PAGINATION
@@ -90,9 +109,7 @@ export default function Books() {
       .map((book, index) => (
       <Book key={index} book={book} />
   ));
-
-  const sortArray = ["Title A-Z", "Title Z-A", "Author A-Z", "Author Z-A", "Rating 5-1", "Rating 1-5", "Year newest", "Year oldest"];
-
+console.log(listBooks)
   return (
     <Background>
       <Navigation />
@@ -106,6 +123,8 @@ export default function Books() {
           />
           <Button buttonOnClick={handleSearchClick}>Search</Button>
         </div>
+
+        <DropDownElement text="Filter" name="filter" options={genreArray} selectedOption={filterQuery} eventHandler={handleFilter} />
 
         <DropDownElement text="Sort" name="sort" options={sortArray} selectedOption={sortOption} eventHandler={handleSort} />
 
@@ -123,8 +142,8 @@ export default function Books() {
         <DropDownElement text="Display" name="display" options={[10, 20, 50]} selectedOption={booksPerPage.maxBooks} eventHandler={handleBooksPerPage} />
 
         <Button buttonType="button" buttonOnClick={goBack}>Previous</Button>
-        {paginationButtonNumbers.map((paginationNumber) => {
-          return <Button buttonType="button" buttonOnClick={() => goAnywhere(paginationNumber)}>{paginationNumber}</Button>
+        {paginationButtonNumbers.map((paginationNumber, index) => {
+          return <Button key={index} buttonType="button" buttonOnClick={() => goAnywhere(paginationNumber)}>{paginationNumber}</Button>
         })}
         <Button buttonType="button" buttonOnClick={goForward}>Next</Button>
       </div>

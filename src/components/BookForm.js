@@ -13,6 +13,7 @@ import returnAfterTimeout from "../utils/returnAfterTimeout";
 import { v4 as uuidv4 } from 'uuid';
 import { FaRegStar, FaStar } from "react-icons/fa";
 import IconContainer from "../components/smallComponents/IconContainer";
+import genreArray from "../utils/genreArray";
 
 export default function BookForm() {
 
@@ -91,6 +92,33 @@ export default function BookForm() {
       setRating(index);
   };
 
+ // Accessibility
+  const handleKeyDown = (event) => {
+    const items = Array.from(document.querySelectorAll('.selectable-item'));
+    const currentIndex = items.indexOf(document.activeElement);
+    
+    if (event.key === 'ArrowRight') {
+      const nextIndex = (currentIndex + 1) % items.length;
+      items[nextIndex].focus();
+      event.preventDefault();
+    } else if (event.key === 'ArrowLeft') {
+      const prevIndex = (currentIndex - 1 + items.length) % items.length;
+      items[prevIndex].focus();
+      event.preventDefault();
+    } else if (event.key === 'Enter') {
+      // Ensure we have a focused item to select
+      if (currentIndex !== -1) {
+        const selectedItem = items[currentIndex];
+        const index = parseInt(selectedItem.getAttribute('value'), 10); 
+
+        // Call the eventHandler
+        handleStarClick(index + 1);
+
+        event.preventDefault();
+      }
+    }
+  };
+
   return (
     <Background>
         <form className="bg-slate-800 rounded-lg p-3 w-96 flex flex-col justify-center items-center mx-auto" onSubmit={handleSubmit}>
@@ -115,16 +143,24 @@ export default function BookForm() {
 
             <InputElement labelText="Author name" name="author" value={formState.author} onChange={handleFormChange} />
 
-            <InputElement labelText="Genre" name="genre" value={formState.genre} onChange={handleFormChange} />
-
             <DropDownElement text="Read year" name="year" options={yearsArray} selectedOption={formState.year} eventHandler={handleFormChange} />
+
+            <DropDownElement text="Genre" name="genre" options={genreArray} selectedOption={formState.genre} eventHandler={handleFormChange} />
 
             <TextAreaElement labelText="Write a short review" name="review" value={formState.review} onChange={handleFormChange} />
 
             <IconContainer>
                 {[...Array(5)].map((_, index) => (
-                    <span key={index} onClick={() => handleStarClick(index + 1)}>
-                        {index < rating ? <FaStar /> : <FaRegStar />}
+                    <span 
+                      key={index} 
+                      value={index}
+                      tabIndex="0" 
+                      className="selectable-item text-purple-800" 
+                      onKeyDown={handleKeyDown}
+                      role="button"
+                      aria-label={`Rate ${index} star${index > 1 ? 's' : ''}`}
+                      onClick={() => handleStarClick(index + 1)}>
+                        {index < rating ? <FaStar size="28px" /> : <FaRegStar size="28px" />}
                     </span>
                 ))}
             </IconContainer>

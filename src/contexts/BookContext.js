@@ -56,6 +56,10 @@ const bookReducer = (state, action) => {
       const sortedBooks = sortBooks([...displayedBooks], payload.newSortOption);
       return { ...state, displayedBooks: sortedBooks };
 
+    case 'FILTER_GENRE':
+      const filteredBooks = displayedBooks.filter((book) => book.genre === payload);
+      return { ...state, displayedBooks: filteredBooks };
+
     case 'RESET_FILTERS':
       return { ...state, displayedBooks: bookArray };
 

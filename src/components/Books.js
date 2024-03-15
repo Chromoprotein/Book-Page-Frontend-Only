@@ -10,14 +10,17 @@ import useSort from "../utils/useSort";
 import usePagination from "../utils/usePagination";
 import PaginationButtons from "./PaginationButtons";
 import FilterMenu from "./FilterMenu";
+import { useBooksActions } from "../contexts/BookContext";
  
 export default function Books() {
 
+  const { dispatch } = useBooksActions();
+
   // Filter and search
-  const { query, filterQuery, handleChangeInput, handleChangeMenu, resetSearch } = useSearchAndFilter();
+  const { query, filterQuery, handleChangeInput, handleChangeMenu, setQuery, setFilterQuery } = useSearchAndFilter();
 
   // Sorting
-  const { sortOption, handleSort } = useSort();
+  const { sortOption, handleSort, setSortOption } = useSort();
 
   // Pagination
   const { booksPerPage, handleBooksPerPage, paginatedBooks, goAnywhere, goBack, goForward, paginationButtonNumbers } = usePagination();
@@ -27,6 +30,14 @@ export default function Books() {
       .map((book, index) => (
       <IndividualBook key={index} book={book} />
   ));
+
+  // Reset the search, filters, or sorting
+  const resetSearch = () => {
+    setQuery('');
+    setFilterQuery('');
+    setSortOption('');
+    dispatch({ type: 'RESET_FILTERS' });
+  };
 
   return (
     <Background>

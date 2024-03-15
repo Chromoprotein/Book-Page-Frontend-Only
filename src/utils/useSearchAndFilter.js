@@ -2,14 +2,11 @@ import { useState, useCallback, useEffect } from 'react';
 import Fuse from 'fuse.js';
 import { useBooks } from '../contexts/BookContext';
 import { useBooksActions } from '../contexts/BookContext';
-import useSort from './useSort';
 
 function useSearchAndFilter(initialQuery = '', initialFilterQuery = '') {
   const { state } = useBooks();
   const { bookArray } = state;
   const { dispatch } = useBooksActions();
-
-  const { setSortOption } = useSort();
 
   const [query, setQuery] = useState(initialQuery);
   const [filterQuery, setFilterQuery] = useState(initialFilterQuery);
@@ -39,20 +36,15 @@ function useSearchAndFilter(initialQuery = '', initialFilterQuery = '') {
     handleSearchOrFilter();
   }, [filterQuery, handleSearchOrFilter]);
 
-  // Reset the search or filters
-  const resetSearch = () => {
-    setQuery('');
-    setFilterQuery('');
-    setSortOption('');
-    dispatch({ type: 'RESET_FILTERS' });
-  };
+
   
   return {
     query,
+    setQuery,
     filterQuery,
+    setFilterQuery,
     handleChangeInput,
     handleChangeMenu,
-    resetSearch
   };
 }
 

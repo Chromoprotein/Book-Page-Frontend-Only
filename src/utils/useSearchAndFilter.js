@@ -31,13 +31,11 @@ function useSearchAndFilter(initialQuery = '', initialFilterQuery = '') {
     dispatch({ type: 'SEARCH_OR_FILTER', payload: { query, fuse, filterQuery } });
   }, [query, bookArray, filterQuery, dispatch]);
 
-  // Selecting a filter runs the search/filter function
+  // Changing the search query or filter query runs the search/filter function
   useEffect(() => {
     handleSearchOrFilter();
-  }, [filterQuery, handleSearchOrFilter]);
+  }, [handleSearchOrFilter]);
 
-
-  
   return {
     query,
     setQuery,

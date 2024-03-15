@@ -61,7 +61,7 @@ const bookReducer = (state, action) => {
       return { ...state, displayedBooks: filteredSearchResults };
 
     case 'SORT':
-      const sortedBooks = sortBooks([...displayedBooks], payload.newSortOption);
+      const sortedBooks = sortBooks([...displayedBooks], payload.sortOption);
       return { ...state, displayedBooks: sortedBooks };
 
     case 'RESET_FILTERS':

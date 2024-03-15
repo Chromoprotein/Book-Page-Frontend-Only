@@ -1,17 +1,19 @@
 import { useBooksActions } from '../contexts/BookContext';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 
 export default function useSort() {
   const { dispatch } = useBooksActions();
 
-  const [sortOption, setSortOption] = useState('');
-  // Sort dispatch action
+  // The state of the sorting option
+  const [sortOption, setSortOption] = useState('Title A-Z');
 
-  const handleSort = (e) => {
-    const newSortOption = e.target.value;
-    setSortOption(newSortOption);
-    dispatch({ type: 'SORT', payload: { newSortOption } });
-  };
+  const handleSort = useCallback((e) => {
+    setSortOption(e.target.value);
+  }, []);
 
-  return { sortOption, handleSort, setSortOption }
+  const handleSortRun = useCallback(() => {
+    dispatch({ type: 'SORT', payload: { sortOption } });
+  }, [sortOption, dispatch])
+
+  return { sortOption, handleSort, handleSortRun, setSortOption }
 }

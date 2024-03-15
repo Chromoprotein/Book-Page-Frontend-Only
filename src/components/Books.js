@@ -11,6 +11,7 @@ import usePagination from "../utils/usePagination";
 import PaginationButtons from "./PaginationButtons";
 import FilterMenu from "./FilterMenu";
 import { useBooksActions } from "../contexts/BookContext";
+import { useEffect } from "react";
  
 export default function Books() {
 
@@ -20,7 +21,7 @@ export default function Books() {
   const { query, filterQuery, handleChangeInput, handleChangeMenu, setQuery, setFilterQuery } = useSearchAndFilter();
 
   // Sorting
-  const { sortOption, handleSort, setSortOption } = useSort();
+  const { sortOption, handleSort, setSortOption, handleSortRun } = useSort();
 
   // Pagination
   const { booksPerPage, handleBooksPerPage, paginatedBooks, goAnywhere, goBack, goForward, paginationButtonNumbers } = usePagination();
@@ -35,9 +36,15 @@ export default function Books() {
   const resetSearch = () => {
     setQuery('');
     setFilterQuery('');
-    setSortOption('');
+    setSortOption('Title A-Z');
     dispatch({ type: 'RESET_FILTERS' });
   };
+
+  // Changing the search query or the filter query re-runs sorting
+  // This has to be here and not in the useSort hook, so the states of query and filterQuery follow correctly
+  useEffect(() => {
+    handleSortRun();
+  }, [handleSortRun, query, filterQuery]);
 
   return (
     <Background>

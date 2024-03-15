@@ -1,4 +1,4 @@
-import { WhiteTextLine } from "./TextLines";
+import WhiteTextLine from "./WhiteTextLine";
 
 export default function SmallInfoContainer({ children }) {
     return (

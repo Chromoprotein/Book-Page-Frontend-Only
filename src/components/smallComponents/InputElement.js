@@ -1,6 +1,6 @@
-import { WhiteTextLine } from "./TextLines";
+import WhiteTextLine from "./WhiteTextLine";
 
-export function InputElement({ labelText, placeholder, name, value, onChange, handleKeyDown }) {
+export default function InputElement({ labelText, placeholder, name, value, onChange, handleKeyDown }) {
     return (
       <label>
         {labelText && <WhiteTextLine>{labelText}</WhiteTextLine>}
@@ -10,20 +10,6 @@ export function InputElement({ labelText, placeholder, name, value, onChange, ha
           onChange={onChange}
           placeholder={placeholder}
           onKeyDown={handleKeyDown} // Enter triggers a button if needed
-          required
-        />
-      </label>
-    );
-}
-
-export function TextAreaElement({ labelText, name, value, onChange }) {
-    return (
-      <label>
-        <WhiteTextLine>{labelText}</WhiteTextLine>
-        <textarea
-          name={name}
-          value={value}
-          onChange={onChange}
           required
         />
       </label>

@@ -48,17 +48,21 @@ const bookReducer = (state, action) => {
         displayedBooks: keptBooks,
       };
 
-    case 'SEARCH':
-      const searchResults = payload.query ? filterBooks(payload.fuse, payload.query) : state.bookArray;
-      return { ...state, displayedBooks: searchResults };
+    case 'SEARCH_OR_FILTER':
+      // Search query
+      const searchResults = payload.query 
+      ? filterBooks(payload.fuse, payload.query) 
+      : state.bookArray;
+      // Filter 
+      const filteredSearchResults = payload.filterQuery
+      ? searchResults.filter((book) => book.genre === payload.filterQuery)
+      : searchResults;
+
+      return { ...state, displayedBooks: filteredSearchResults };
 
     case 'SORT':
       const sortedBooks = sortBooks([...displayedBooks], payload.newSortOption);
       return { ...state, displayedBooks: sortedBooks };
-
-    case 'FILTER_GENRE':
-      const filteredBooks = displayedBooks.filter((book) => book.genre === payload);
-      return { ...state, displayedBooks: filteredBooks };
 
     case 'RESET_FILTERS':
       return { ...state, displayedBooks: bookArray };

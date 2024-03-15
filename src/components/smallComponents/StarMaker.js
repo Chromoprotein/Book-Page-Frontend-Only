@@ -1,5 +1,5 @@
 import { FaStar } from "react-icons/fa";
-import IconContainer from "../components/smallComponents/IconContainer";
+import IconContainer from "./IconContainer";
 
 export default function StarMaker({stars}) {
     const fullStars = Math.floor(stars);

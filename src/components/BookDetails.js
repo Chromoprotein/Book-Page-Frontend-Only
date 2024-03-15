@@ -1,16 +1,16 @@
 import React from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useBooks } from "../contexts/BookContext";
-import coverImage from "../utils/CoverImage";
-import Button from "./smallComponents/Button";
-import BookText from "./smallComponents/BookText";
+import coverImage from "./smallComponents/CoverImage";
+import BookText from "./BookText";
 import Background from "./smallComponents/Background";
 import Navigation from "./Navigation";
-import { WhiteTextLine } from "./smallComponents/TextLines";
-import StarMaker from "../utils/StarMaker";
+import WhiteTextLine from "./smallComponents/WhiteTextLine";
+import StarMaker from "./smallComponents/StarMaker";
 import BookCover from "./smallComponents/BookCover";
 import SmallInfoContainer from "./smallComponents/SmallInfoContainer";
 import { VscEdit } from "react-icons/vsc";
+import LinkButton from "./smallComponents/LinkButton";
 
 // The page that displays a book separately
 
@@ -51,14 +51,12 @@ export default function BookDetails() {
             </div>
 
             <div className="bg-slate-700 px-0 py-2 m-0 w-full rounded-br-lg rounded-bl-lg md:rounded-bl-none flex flex-row flex-wrap gap-1 justify-center">
-              <Link to={`/edit/${encodeURIComponent(id)}`}>
-                <Button buttonType="button">
-                    <VscEdit /> Edit
-                </Button>
-              </Link>
-              <Link to={`/`}>
-                <Button buttonType="button">Return</Button>
-              </Link>
+              <LinkButton url={`/edit/${encodeURIComponent(id)}`}>
+                <VscEdit /> Edit
+              </LinkButton>
+              <LinkButton url={`/`}>
+                Return
+              </LinkButton>
             </div>
           </div>
 

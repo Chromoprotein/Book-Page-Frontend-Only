@@ -1,5 +1,5 @@
-import { TextLine } from "./TextLines";
-import { BigTextLine } from "./TextLines";
+import TextLine from "./smallComponents/TextLine";
+import BigTextLine from "./smallComponents/TextLine";
 
 export default function BookText({ series, title, author, year, genre }) {
 

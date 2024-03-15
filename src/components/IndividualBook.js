@@ -1,13 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import Button from "./smallComponents/Button";
-import coverImage from "../utils/CoverImage";
-import BookText from "./smallComponents/BookText";
+import coverImage from "./smallComponents/CoverImage";
+import BookText from "./BookText";
 import { VscLibrary } from "react-icons/vsc";
-import StarMaker from "../utils/StarMaker";
+import StarMaker from "./smallComponents/StarMaker";
 import BookCover from "./smallComponents/BookCover";
+import LinkButton from "./smallComponents/LinkButton";
 
-export default function Book({ book: { id, title, series, author, imgSrc, stars, year } }) {
+export default function IndividualBook({ book: { id, title, series, author, imgSrc, stars, year } }) {
 
   // Cover image or placeholder
   const cover = coverImage({ id, title, series, author, imgSrc, stars, year });
@@ -22,11 +21,9 @@ export default function Book({ book: { id, title, series, author, imgSrc, stars,
           <BookText series={series} title={title} author={author} year={year} />
           <StarMaker stars={stars} />
           <div className="mb-2">
-            <Link to={`/book/${encodeURIComponent(id)}`}>
-              <Button buttonType="button">
-                  <VscLibrary /> Details
-              </Button>
-            </Link>
+            <LinkButton url={`/book/${encodeURIComponent(id)}`}>
+              <VscLibrary /> Details
+            </LinkButton>
           </div>
         </div>
 

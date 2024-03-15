@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/books.css";
 import Button from "./smallComponents/Button";
 import { useBooksActions } from "../contexts/BookContext";
-import { InputElement, TextAreaElement } from "./smallComponents/InputElement";
 import DropDownElement from "./smallComponents/DropDownElement";
 import { yearsArray } from "../utils/yearsArray";
 import Background from "./smallComponents/Background";
@@ -14,8 +13,12 @@ import { v4 as uuidv4 } from 'uuid';
 import { FaRegStar, FaStar } from "react-icons/fa";
 import IconContainer from "../components/smallComponents/IconContainer";
 import genreArray from "../utils/genreArray";
+import useGenericKeyDown from "../utils/useGenericKeyDown";
+import TextAreaElement from "../components/smallComponents/TextAreaElement";
+import InputElement from "../components/smallComponents/InputElement";
+import LinkButton from "./smallComponents/LinkButton";
 
-export default function BookForm() {
+export default function BookForm() { 
 
   const { state } = useBooks();
   const { bookArray } = state;
@@ -32,6 +35,7 @@ export default function BookForm() {
     year: "",
     review: "",
     genre: "",
+    stars: "",
   };
 
   const [formState, setFormState] = useState(emptyForm);
@@ -42,8 +46,13 @@ export default function BookForm() {
   // To return after submitting the form
   const navigate = useNavigate();
 
-  // For the submit button
-  const isEmpty = Object.values(formState).some(field => field === null || field === '');
+  // For disabling the submit button if the form isn't completely filled
+  const [isDisabled, setIsDisabled] = useState(true);
+
+  useEffect(() => {
+    const isEmpty = Object.values(formState).some(field => field === null || field === '');
+    setIsDisabled(isEmpty);
+  }, [formState]); // This effect depends on formState and runs whenever formState changes
 
   const handleFormChange = (e) => {
     if (e.target.type === 'file') {
@@ -68,11 +77,13 @@ export default function BookForm() {
 
     if(id) {
       // Dispatch an action to edit a book
+      setIsDisabled(true);
       dispatch({ type: "EDIT_BOOK", payload: formState });
       setSuccessMessage("Changes saved");
       returnAfterTimeout(navigate, `/book/${encodeURIComponent(id)}`);
     } else {
       // Dispatch an action to add a new book
+      setIsDisabled(true);
       const uniqueId = uuidv4();
       dispatch({ type: "ADD_BOOK", payload: {...formState, id: uniqueId} });
       setSuccessMessage("New book uploaded");
@@ -81,43 +92,21 @@ export default function BookForm() {
   };
 
   const handleDelete = () => {
+    setIsDisabled(true);
     dispatch({ type: "DELETE_BOOK", payload: formState })
     setSuccessMessage("Book deleted");
     returnAfterTimeout(navigate, "/");
   }
 
-  const [rating, setRating] = useState(0);
-
-  const handleStarClick = (index) => {
-      setRating(index);
-  };
-
- // Accessibility
-  const handleKeyDown = (event) => {
-    const items = Array.from(document.querySelectorAll('.selectable-item'));
-    const currentIndex = items.indexOf(document.activeElement);
-    
-    if (event.key === 'ArrowRight') {
-      const nextIndex = (currentIndex + 1) % items.length;
-      items[nextIndex].focus();
-      event.preventDefault();
-    } else if (event.key === 'ArrowLeft') {
-      const prevIndex = (currentIndex - 1 + items.length) % items.length;
-      items[prevIndex].focus();
-      event.preventDefault();
-    } else if (event.key === 'Enter') {
-      // Ensure we have a focused item to select
-      if (currentIndex !== -1) {
-        const selectedItem = items[currentIndex];
-        const index = parseInt(selectedItem.getAttribute('value'), 10); 
-
-        // Call the eventHandler
-        handleStarClick(index + 1);
-
-        event.preventDefault();
-      }
-    }
-  };
+  // Accessibility
+  // (selectedItem) => { ... } is a callback function (handleEnter) which is excuted by pressing enter
+  const handleKeyDown = useGenericKeyDown((selectedItem) => {
+    const index = parseInt(selectedItem.getAttribute('value'), 10); 
+    const simulatedEvent = {
+      target: {name: "stars", value: index + 1,}
+    };
+    handleFormChange(simulatedEvent);
+  }, { next: 'ArrowRight', prev: 'ArrowLeft' });
 
   return (
     <Background>
@@ -133,8 +122,8 @@ export default function BookForm() {
               />
               <Button
                 buttonType="button"
-                buttonOnClick={() => document.getElementById('file-upload').click()}
-              >Upload Image
+                buttonOnClick={() => document.getElementById('file-upload').click()}>
+                  Upload Image
               </Button>
               {formState.imgSrc && <img src={formState.imgSrc} alt="Uploaded" />}
             </div>
@@ -150,8 +139,11 @@ export default function BookForm() {
             <TextAreaElement labelText="Write a short review" name="review" value={formState.review} onChange={handleFormChange} />
 
             <IconContainer>
-                {[...Array(5)].map((_, index) => (
-                    <span 
+                {[...Array(5)].map((_, index) => {
+                    const simulatedEvent = {
+                      target: {name: "stars", value: index + 1,}
+                    };
+                    return <span 
                       key={index} 
                       value={index}
                       tabIndex="0" 
@@ -159,23 +151,25 @@ export default function BookForm() {
                       onKeyDown={handleKeyDown}
                       role="button"
                       aria-label={`Rate ${index} star${index > 1 ? 's' : ''}`}
-                      onClick={() => handleStarClick(index + 1)}>
-                        {index < rating ? <FaStar size="28px" /> : <FaRegStar size="28px" />}
+                      onClick={() => handleFormChange(simulatedEvent)}>
+                        {index < formState.stars ? <FaStar size="28px" /> : <FaRegStar size="28px" />}
                     </span>
-                ))}
+                })}
             </IconContainer>
 
-            {successMessage && <SmallInfoContainer>{successMessage}</SmallInfoContainer>}
+            {successMessage && <SmallInfoContainer>
+              {successMessage}
+            </SmallInfoContainer>}
 
-            <Button buttonType="submit" isDisabled={isEmpty}>
+            <Button buttonType="submit" isDisabled={isDisabled}>
               Submit
             </Button>
 
-            <Link to={`/`}>
-              <Button buttonType="button">Return</Button>
-            </Link>
+            <LinkButton url={`/`}>Return</LinkButton>
 
-            {id && <Button buttonType="button" buttonOnClick={handleDelete}>Delete</Button>}
+            {id && <Button buttonType="button" buttonOnClick={handleDelete}>
+              Delete
+            </Button>}
           </form>
     </Background>
   );

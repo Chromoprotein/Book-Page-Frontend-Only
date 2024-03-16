@@ -165,12 +165,15 @@ export default function BookForm() {
               Submit
             </Button>
 
+          </form>
+
+          <nav>
             <LinkButton url={`/`}>Return</LinkButton>
 
             {id && <Button buttonType="button" buttonOnClick={handleDelete}>
               Delete
             </Button>}
-          </form>
+          </nav>
     </Background>
   );
 }

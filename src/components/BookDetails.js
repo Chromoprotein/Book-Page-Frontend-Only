@@ -36,32 +36,36 @@ export default function BookDetails() {
 
       <Navigation />
 
-      <div className="m-2">
+      <main className="m-2">
         <div className="bg-slate-800 rounded-lg w-full md:w-2/3 grid lg:grid-cols-2 mx-auto">
 
-          <BookCover img={imgSrc} />
+          <figure>
+            <BookCover img={imgSrc} />
+          </figure>
 
-          <div className="flex flex-col justify-between rounded-br-lg rounded-bl-lg md:rounded-bl-none">
+          <article className="flex flex-col justify-between rounded-br-lg rounded-bl-lg md:rounded-bl-none">
             <div className="p-4 flex flex-col justify-between">
               <div>
                 <BookText series={series} title={title} author={author} year={year} genre={genre.charAt(0).toUpperCase() + genre.slice(1)} />
                 <StarMaker stars={stars} />
-                <WhiteTextLine>{reviewContent}</WhiteTextLine>
+                <section>
+                  <WhiteTextLine>{reviewContent}</WhiteTextLine>
+                </section>
               </div>
             </div>
 
-            <div className="bg-slate-700 px-0 py-2 m-0 w-full rounded-br-lg rounded-bl-lg md:rounded-bl-none flex flex-row flex-wrap gap-1 justify-center">
+            <nav className="bg-slate-700 px-0 py-2 m-0 w-full rounded-br-lg rounded-bl-lg md:rounded-bl-none flex flex-row flex-wrap gap-1 justify-center">
               <LinkButton url={`/edit/${encodeURIComponent(id)}`}>
                 <VscEdit /> Edit
               </LinkButton>
               <LinkButton url={`/`}>
                 Return
               </LinkButton>
-            </div>
-          </div>
+            </nav>
+          </article>
 
         </div>
-      </div>
+      </main>
 
     </Background>
   );

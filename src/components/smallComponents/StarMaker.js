@@ -9,10 +9,10 @@ export default function StarMaker({stars}) {
     ));
 
     return (
-        <div className="p-3 text-purple-800">
+        <figure className="p-3 text-purple-800">
             <IconContainer>
                 {fullStarsElements}
             </IconContainer>
-        </div>
+        </figure>
     );
 };

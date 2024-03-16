@@ -33,7 +33,7 @@ export default function DropDownElement({ text, name, options, selectedOption, e
       <Button buttonType="button" buttonOnClick={toggleDropdown}>{selectedOption ? text + ": " + selectedOption : text}</Button>
 
       {isOpen && (
-        <div 
+        <ul 
           tabIndex="0" 
           role="listbox" 
           className="fixed inset-0 md:inset-auto md:right-2 z-50 md:absolute md:z-10 md:mt-1 bg-white md:rounded-md shadow-lg w-screen md:w-32 h-fit">
@@ -43,7 +43,7 @@ export default function DropDownElement({ text, name, options, selectedOption, e
             const simulatedEvent = {
                 target: {name: name, value: option,}
             };
-            return <div
+            return <li
               key={index} 
               // for screen readers
               role="option" 
@@ -59,10 +59,10 @@ export default function DropDownElement({ text, name, options, selectedOption, e
               }}
               onKeyDown={handleKeyDown}>
                 {option}
-              </div>
+              </li>
           })}
           
-        </div>
+        </ul>
       )}
 
     </div>

@@ -1,5 +1,5 @@
 export default function WhiteTextLine({children}) {
   return (
-    <p className="text-white">{children}</p>
+    <p className="text-gray-200">{children}</p>
   );
 }

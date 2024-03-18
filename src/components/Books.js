@@ -24,8 +24,8 @@ export default function Books() {
   const { sortOption, handleSort, setSortOption, handleSortRun } = useSort();
 
   // Pagination
-  const { booksPerPage, handleBooksPerPage, paginatedBooks, goAnywhere, goBack, goForward, paginationButtonNumbers } = usePagination();
-
+  const { currentPage, booksPerPage, handleBooksPerPage, paginatedBooks, goAnywhere, goBack, goForward, paginationButtonNumbers, totalPagesState } = usePagination();
+ 
   // MAP refined and paginated books for DISPLAY
   const listBooks = paginatedBooks
       .map((book, index) => (
@@ -46,6 +46,7 @@ export default function Books() {
     handleSortRun();
   }, [handleSortRun, query, filterQuery]);
 
+  
   return (
     <Background>
       <Navigation />
@@ -59,7 +60,7 @@ export default function Books() {
         <SmallInfoContainer>No books found for this search or filter.</SmallInfoContainer>
       }
 
-      <PaginationButtons booksPerPage={booksPerPage} handleBooksPerPage={handleBooksPerPage} goBack={goBack} paginationButtonNumbers={paginationButtonNumbers} goAnywhere={goAnywhere} goForward={goForward} />
+      <PaginationButtons currentPage={currentPage} booksPerPage={booksPerPage} handleBooksPerPage={handleBooksPerPage} goBack={goBack} paginationButtonNumbers={paginationButtonNumbers} goAnywhere={goAnywhere} goForward={goForward} totalPages={totalPagesState} />
 
     </Background>
   );

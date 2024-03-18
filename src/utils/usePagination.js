@@ -44,6 +44,8 @@ export default function usePagination() {
     goBack,
     goForward,
     paginationButtonNumbers,
-    setCurrentPage
+    currentPage,
+    setCurrentPage,
+    totalPagesState
   }
 }

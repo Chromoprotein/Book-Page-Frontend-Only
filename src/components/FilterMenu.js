@@ -1,4 +1,3 @@
-import BasicFlexbox from "./smallComponents/BasicFlexbox";
 import InputElement from "./smallComponents/InputElement";
 import DropDownElement from "./smallComponents/DropDownElement";
 import Button from "./smallComponents/Button";
@@ -8,22 +7,20 @@ import { sortArray } from "../utils/sortArray";
 export default function FilterMenu({ query, handleChangeInput, filterQuery, handleChangeMenu, sortOption, handleSort, resetSearch }) {
 
     return (
-      <fieldset>
-        <BasicFlexbox>
-          <div className="flex flex-col lg:flex-row items-center gap-2 mx-auto justify-center">
-            <InputElement
-              placeholder="Type to search"
-              value={query}
-              onChange={handleChangeInput}
-            />
-          </div>
+      <fieldset className="flex flex-row flex-wrap justify-center place-content-center mx-auto gap-3 p-2 lg:w-2/3">
+        <div>
+          <InputElement
+            placeholder="Type to search"
+            value={query}
+            onChange={handleChangeInput}
+          />
+        </div>
 
-          <DropDownElement text="Filter" name="filter" options={genreArray} selectedOption={filterQuery} eventHandler={handleChangeMenu} />
+        <DropDownElement text="Filter" name="filter" options={genreArray} selectedOption={filterQuery} eventHandler={handleChangeMenu} />
 
-          <DropDownElement text="Sort" name="sort" options={sortArray} selectedOption={sortOption} eventHandler={handleSort} />
+        <DropDownElement text="Sort" name="sort" options={sortArray} selectedOption={sortOption} eventHandler={handleSort} />
 
-          <Button buttonOnClick={resetSearch}>Reset</Button>
-        </BasicFlexbox>
+        <Button buttonOnClick={resetSearch} isDisabled={(query.length !== 0 || filterQuery.length !== 0 || sortOption !== 'Title A-Z') ? false : true}>Reset</Button>
       </fieldset>
     );
 }

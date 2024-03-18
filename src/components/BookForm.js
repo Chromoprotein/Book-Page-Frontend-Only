@@ -17,6 +17,7 @@ import useGenericKeyDown from "../utils/useGenericKeyDown";
 import TextAreaElement from "../components/smallComponents/TextAreaElement";
 import InputElement from "../components/smallComponents/InputElement";
 import LinkButton from "./smallComponents/LinkButton";
+import BigTextLine from "./smallComponents/BigTextLine";
 
 export default function BookForm() { 
 
@@ -110,64 +111,69 @@ export default function BookForm() {
 
   return (
     <Background>
-        <form className="bg-slate-800 rounded-lg p-3 w-96 flex flex-col justify-center items-center mx-auto" onSubmit={handleSubmit}>
-
-            <div>
-              <input 
-                type="file" 
-                name="imgSrc"
-                id="file-upload" 
-                className="hidden" 
-                onChange={handleFormChange} 
-              />
-              <Button
-                buttonType="button"
-                buttonOnClick={() => document.getElementById('file-upload').click()}>
-                  Upload Image
-              </Button>
-              {formState.imgSrc && <img src={formState.imgSrc} alt="Uploaded" />}
+        <form className="bg-slate-800 rounded-t-lg w-96 mx-auto" onSubmit={handleSubmit}>
+            <div className="bg-slate-900 w-full m-0 p-4 text-center rounded-t-lg">
+              <legend><BigTextLine>Upload a new book</BigTextLine></legend>
             </div>
 
-            <InputElement labelText="Book name" name="title" value={formState.title} onChange={handleFormChange} />
+            <div className="p-4 w-full flex flex-col justify-center items-center gap-2">
+              <div>
+                <input 
+                  type="file" 
+                  name="imgSrc"
+                  id="file-upload" 
+                  className="hidden" 
+                  onChange={handleFormChange} 
+                />
+                <Button
+                  buttonType="button"
+                  buttonOnClick={() => document.getElementById('file-upload').click()}>
+                    Upload Image
+                </Button>
+                {formState.imgSrc && <img src={formState.imgSrc} alt="Uploaded" className="rounded-lg my-3" />}
+              </div>
 
-            <InputElement labelText="Author name" name="author" value={formState.author} onChange={handleFormChange} />
+              <InputElement labelText="Book name" name="title" value={formState.title} onChange={handleFormChange} placeholder="Book name here..." />
 
-            <DropDownElement text="Read year" name="year" options={yearsArray} selectedOption={formState.year} eventHandler={handleFormChange} />
+              <InputElement labelText="Author name" name="author" value={formState.author} onChange={handleFormChange} placeholder="Author name here..." />
 
-            <DropDownElement text="Genre" name="genre" options={genreArray} selectedOption={formState.genre} eventHandler={handleFormChange} />
+              <DropDownElement text="Read year" name="year" options={yearsArray} selectedOption={formState.year} eventHandler={handleFormChange} />
 
-            <TextAreaElement labelText="Write a short review" name="review" value={formState.review} onChange={handleFormChange} />
+              <DropDownElement text="Genre" name="genre" options={genreArray} selectedOption={formState.genre} eventHandler={handleFormChange} />
 
-            <IconContainer>
-                {[...Array(5)].map((_, index) => {
-                    const simulatedEvent = {
-                      target: {name: "stars", value: index + 1,}
-                    };
-                    return <span 
-                      key={index} 
-                      value={index}
-                      tabIndex="0" 
-                      className="selectable-item text-purple-800" 
-                      onKeyDown={handleKeyDown}
-                      role="button"
-                      aria-label={`Rate ${index} star${index > 1 ? 's' : ''}`}
-                      onClick={() => handleFormChange(simulatedEvent)}>
-                        {index < formState.stars ? <FaStar size="28px" /> : <FaRegStar size="28px" />}
-                    </span>
-                })}
-            </IconContainer>
+              <TextAreaElement labelText="Write a short review" name="review" value={formState.review} onChange={handleFormChange} placeholder="Your review here..." />
 
-            {successMessage && <SmallInfoContainer>
-              {successMessage}
-            </SmallInfoContainer>}
+              <IconContainer>
+                  {[...Array(5)].map((_, index) => {
+                      const simulatedEvent = {
+                        target: {name: "stars", value: index + 1,}
+                      };
+                      return <span 
+                        key={index} 
+                        value={index}
+                        tabIndex="0" 
+                        className="selectable-item text-purple-800 mb-2" 
+                        onKeyDown={handleKeyDown}
+                        role="button"
+                        aria-label={`Rate ${index} star${index > 1 ? 's' : ''}`}
+                        onClick={() => handleFormChange(simulatedEvent)}>
+                          {index < formState.stars ? <FaStar size="28px" /> : <FaRegStar size="28px" />}
+                      </span>
+                  })}
+              </IconContainer>
 
-            <Button buttonType="submit" isDisabled={isDisabled}>
-              Submit
-            </Button>
+              {successMessage && <SmallInfoContainer>
+                {successMessage}
+              </SmallInfoContainer>}
+
+              <Button buttonType="submit" isDisabled={isDisabled}>
+                Submit
+              </Button>
+            </div>
 
           </form>
 
-          <nav>
+          <nav className="bg-slate-700 w-96 mx-auto rounded-b-lg p-2">
             <LinkButton url={`/`}>Return</LinkButton>
 
             {id && <Button buttonType="button" buttonOnClick={handleDelete}>

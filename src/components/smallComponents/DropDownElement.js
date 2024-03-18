@@ -27,45 +27,45 @@ export default function DropDownElement({ text, name, options, selectedOption, e
   }, { next: 'ArrowDown', prev: 'ArrowUp' });
 
   return (
-
-    <div className="relative" ref={dropdownRef}>
-
+    <>
       <Button buttonType="button" buttonOnClick={toggleDropdown}>{selectedOption ? text + ": " + selectedOption : text}</Button>
+      
+      <div className="relative" ref={dropdownRef}>
 
-      {isOpen && (
-        <ul 
-          tabIndex="0" 
-          role="listbox" 
-          className="fixed inset-0 md:inset-auto md:right-2 z-50 md:absolute md:z-10 md:mt-1 bg-white md:rounded-md shadow-lg w-screen md:w-32 h-fit">
+        {isOpen && (
+          <ul 
+            tabIndex="0" 
+            role="listbox" 
+            className="fixed inset-0 md:inset-auto md:right-2 z-50 md:absolute md:z-10 md:mt-1 bg-white md:rounded-md shadow-lg w-screen md:w-32 h-fit">
 
-          {options.map((option, index) => {
-            // Simulate an event object
-            const simulatedEvent = {
-                target: {name: name, value: option,}
-            };
-            return <li
-              key={index} 
-              // for screen readers
-              role="option" 
-              aria-selected={option === selectedOption ? "true" : "false"}
-              tabIndex="0" 
-              data-option-value={option}
-              data-name={name}
-              // Other stuff
-              className={`selectable-item hover:bg-purple-800 hover:text-white md:first:hover:rounded-t md:first:rounded-t md:last:hover:rounded-b md:last:rounded-b px-4 py-2 h-20 md:h-12 flex justify-center items-center ${selectedOption === option && "bg-purple-800"}`} 
-              onClick={() => {
-                  eventHandler(simulatedEvent);
-                  setIsOpen(false);
-              }}
-              onKeyDown={handleKeyDown}>
-                {option}
-              </li>
-          })}
-          
-        </ul>
-      )}
+            {options.map((option, index) => {
+              // Simulate an event object
+              const simulatedEvent = {
+                  target: {name: name, value: option,}
+              };
+              return <li
+                key={index} 
+                // for screen readers
+                role="option" 
+                aria-selected={option === selectedOption ? "true" : "false"}
+                tabIndex="0" 
+                data-option-value={option}
+                data-name={name}
+                // Other stuff
+                className={`selectable-item hover:bg-purple-800 hover:text-white md:first:hover:rounded-t md:first:rounded-t md:last:hover:rounded-b md:last:rounded-b px-4 py-2 h-20 md:h-12 flex justify-center items-center ${selectedOption === option && "bg-purple-800"}`} 
+                onClick={() => {
+                    eventHandler(simulatedEvent);
+                    setIsOpen(false);
+                }}
+                onKeyDown={handleKeyDown}>
+                  {option}
+                </li>
+            })}
+            
+          </ul>
+        )}
 
-    </div>
-
+      </div>
+    </>
   );
 }

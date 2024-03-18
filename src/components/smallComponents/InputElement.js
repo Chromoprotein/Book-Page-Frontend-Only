@@ -7,6 +7,7 @@ export default function InputElement({ labelText, placeholder, name, value, onCh
           {labelText && <WhiteTextLine>{labelText}</WhiteTextLine>}
         </label>
           <input
+            className="my-1 p-3 block w-full rounded-lg bg-gray-600 border-0 text-gray-900 text-gray-200 mx-auto"
             name={name}
             value={value}
             onChange={onChange}

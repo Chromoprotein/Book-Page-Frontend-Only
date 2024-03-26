@@ -122,10 +122,12 @@ export default function BookForm() {
                   type="file" 
                   name="imgSrc"
                   id="file-upload" 
+                  data-testid="file-upload"
                   className="hidden" 
                   onChange={handleFormChange} 
                 />
                 <Button
+                  testId="upload-button"
                   buttonType="button"
                   buttonOnClick={() => document.getElementById('file-upload').click()}>
                     Upload Image
@@ -133,15 +135,15 @@ export default function BookForm() {
                 {formState.imgSrc && <img src={formState.imgSrc} alt="Uploaded" className="rounded-lg my-3" />}
               </div>
 
-              <InputElement labelText="Book name" name="title" value={formState.title} onChange={handleFormChange} placeholder="Book name here..." />
+              <InputElement labelText="Book name" name="title" value={formState.title} onChange={handleFormChange} placeholder="Book name here..." testId="title-test" />
 
-              <InputElement labelText="Author name" name="author" value={formState.author} onChange={handleFormChange} placeholder="Author name here..." />
+              <InputElement labelText="Author name" name="author" value={formState.author} onChange={handleFormChange} placeholder="Author name here..." testId="author-test" />
 
-              <DropDownElement text="Read year" name="year" options={yearsArray} selectedOption={formState.year} eventHandler={handleFormChange} />
+              <DropDownElement text="Read year" name="year" options={yearsArray} selectedOption={formState.year} eventHandler={handleFormChange} testId="year-test-id" />
 
-              <DropDownElement text="Genre" name="genre" options={genreArray} selectedOption={formState.genre} eventHandler={handleFormChange} />
+              <DropDownElement text="Genre" name="genre" options={genreArray} selectedOption={formState.genre} eventHandler={handleFormChange} testId="genre-test-id" />
 
-              <TextAreaElement labelText="Write a short review" name="review" value={formState.review} onChange={handleFormChange} placeholder="Your review here..." />
+              <TextAreaElement labelText="Write a short review" name="review" value={formState.review} onChange={handleFormChange} placeholder="Your review here..." testId="review-test" />
 
               <IconContainer>
                   {[...Array(5)].map((_, index) => {
@@ -149,6 +151,7 @@ export default function BookForm() {
                         target: {name: "stars", value: index + 1,}
                       };
                       return <span 
+                        data-testid={`star-test-${index}`}
                         key={index} 
                         value={index}
                         tabIndex="0" 
@@ -166,7 +169,7 @@ export default function BookForm() {
                 {successMessage}
               </SmallInfoContainer>}
 
-              <Button buttonType="submit" isDisabled={isDisabled}>
+              <Button testId="submit-button" buttonType="submit" isDisabled={isDisabled}>
                 Submit
               </Button>
             </div>

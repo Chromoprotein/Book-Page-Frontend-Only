@@ -1,20 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`performs snapshot testing 1`] = `
-<a
-  className="flex justify-around items-center"
-  href="/"
-  onClick={[Function]}
->
-  <img
-    alt="Booksmosis logo"
-    className="w-10 md:w-20 md:p-3"
-    src="logo.png"
-  />
-  <h1
-    className="hidden md:inline text-4xl opacity-100 font-medium tracking-wide font-sans text-slate-800"
+exports[`should take a snapshot 1`] = `
+<DocumentFragment>
+  <a
+    class="flex justify-around items-center"
+    href="/"
   >
-    Booksmosis
-  </h1>
-</a>
+    <img
+      alt="Booksmosis logo"
+      class="w-10 md:w-20 md:p-3"
+      src="logo.png"
+    />
+    <h1
+      class="hidden md:inline text-4xl opacity-100 font-medium tracking-wide font-sans text-slate-800"
+    >
+      Bookish
+    </h1>
+  </a>
+</DocumentFragment>
 `;

@@ -3,7 +3,7 @@ import Button from "./Button";
 import useGenericKeyDown from "../../utils/useGenericKeyDown";
 import useOutsideAlerter from "../../utils/useOutsideAlerter";
 
-export default function DropDownElement({ text, name, options, selectedOption, eventHandler }) {
+export default function DropDownElement({ text, name, options, selectedOption, eventHandler, testId }) {
 
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -28,7 +28,7 @@ export default function DropDownElement({ text, name, options, selectedOption, e
 
   return (
     <>
-      <Button buttonType="button" buttonOnClick={toggleDropdown}>{selectedOption ? text + ": " + selectedOption : text}</Button>
+      <Button testId={testId} buttonType="button" buttonOnClick={toggleDropdown}>{selectedOption ? text + ": " + selectedOption : text}</Button>
       
       <div className="relative" ref={dropdownRef}>
 
